@@ -86,30 +86,7 @@
 	</script>
 	<script type="text/javascript" src="js/ng/ng_all.js" /></script>
 	<script type="text/javascript" src="js/ng/components/calendar.js"></script>
-	<script type="text/javascript">
-		//alert("Before NG2");
-		ng.ready(function() {
-			// creating the calendar
-			var start_cal = new ng.Calendar({
-				num_months : 3,
-				num_col : 3,
-				object : "start_cal_holder_div",
-				visible : true,
-				start_date : "01-01-2004",
-				end_date : "12-31-2020"
-			});
-			var end_cal = new ng.Calendar({
-				num_months : 3,
-				num_col : 3,
-				object : "end_cal_holder_div",
-				visible : true,
-				start_date : "01-01-2004",
-				end_date : "12-31-2020"
-			});
-		});
-		//alert("Hello");
-		//var my_cal2 = new ng.Calendar({num_months:4, num_col:2, object:"cal_holder_div"});
-		//my_cal2.make('date2');
-	</script>
+	<script type="text/javascript" src="calendar_calc.js"></script>
+	
 </body>
 </html>
