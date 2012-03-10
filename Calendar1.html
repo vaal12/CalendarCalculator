@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+<title>Calendar1</title>
+
+</head>
+<body>
+	<table style="text-align: left;" border="1"
+		cellpadding="2" cellspacing="2" align="center">
+		<tbody>
+			<tr align="center">
+				<td>Start</td>
+			</tr>
+			<tr>
+				<td>
+					<table style="text-align: left; width: 100%;" border="1"
+						cellpadding="2" cellspacing="2">
+						<tbody>
+							<tr>
+								<td>StartNavLeft</td>
+								<td>
+									<div id="start_cal_holder_div">StartCalendarDiv</div>
+								</td>
+								<td>StartNavRight</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table style="text-align: left; width: 100%;" border="1"
+						cellpadding="2" cellspacing="2">
+						<tbody>
+							<tr>
+								<td>Between</td>
+								<td>XX days</td>
+								<td>XX weeks</td>
+								<td>XX months</td>
+								<td>
+									<table style="text-align: left; width: 100%;" border="1"
+										cellpadding="2" cellspacing="2">
+										<tbody>
+											<tr>
+												<td><button value="Recalculate Start" type="button"></button></td>
+											</tr>
+											<tr>
+												<td><button value="Recalculate End" type="button"></button></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table style="text-align: left; width: 100%;" border="1"
+						cellpadding="2" cellspacing="2">
+						<tbody>
+							<tr>
+								<td>EndNavLeft</td>
+								<td><div id="end_cal_holder_div">EndCalendarDiv</div></td>
+
+								<td>EndNavRight</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>End</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+
+	<script type="text/javascript">
+		//alert("Before NG");
+		var ng_config = {
+			assests_dir : 'js/ng/assets/' // the path to the assets directory
+		};
+	</script>
+	<script type="text/javascript" src="js/ng/ng_all.js" /></script>
+	<script type="text/javascript" src="js/ng/components/calendar.js"></script>
+	<script type="text/javascript">
+		//alert("Before NG2");
+		ng.ready(function() {
+			// creating the calendar
+			var start_cal = new ng.Calendar({
+				num_months : 3,
+				num_col : 3,
+				object : "start_cal_holder_div",
+				visible : true,
+				start_date : "01-01-2004",
+				end_date : "12-31-2020"
+			});
+			var end_cal = new ng.Calendar({
+				num_months : 3,
+				num_col : 3,
+				object : "end_cal_holder_div",
+				visible : true,
+				start_date : "01-01-2004",
+				end_date : "12-31-2020"
+			});
+		});
+		//alert("Hello");
+		//var my_cal2 = new ng.Calendar({num_months:4, num_col:2, object:"cal_holder_div"});
+		//my_cal2.make('date2');
+	</script>
+</body>
+</html>
