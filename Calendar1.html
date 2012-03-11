@@ -76,6 +76,21 @@
             margin-top: -8px;
         }
         
+        .jQuerifiedButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        .jQuerifiedButtonSpan
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
         
         
         #endDateHistoryButton
@@ -168,19 +183,20 @@
                                             </td>
                                             <td>
                                                 <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
-                                                    <span class="ui-icon ui-icon-plusthick"></span>Add column</a> <a href="#" id="addRowStartCalendar"
-                                                        class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick">
-                                                        </span>Remove column</a>
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Add row</a> 
+                                                <a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                	<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick">
+                                                    </span>Remove row</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <p align="right">
-                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
-                                                        <span class="ui-icon ui-icon-plusthick"></span>Add column</a></p>
+                                                    <a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a></p>
                                                 <p align="right">
-                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
-                                                        <span class="ui-icon ui-icon-minusthick"></span>Remove column</a></p>
+                                                    <a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a></p>
                                             </td>
                                             <td>
                                                 <div id="start_cal_holder_div">

@@ -1,6 +1,10 @@
 
 
 startDatesHistory = new Array();
+startDateCurrent = -1;
+
+startCalendarNumberOfRows = 1;
+startCalendarNumberOfCols = 3;
 
 
 
@@ -28,6 +32,7 @@ function onStartDateHistoryClick(eventObj) {
 function startDateSelected(dateStr, instance){
 	//console.log("startDateSelected:"+dateStr);
 	startDatesHistory.push(dateStr);
+	startDateCurrent = dateStr;
 	dateObj = new Date(dateStr);
 	//console.log("We have date object:"+dateObj.toLocaleString());
 	idString = (dateObj.getMonth()+1)+"_"+dateObj.getDate()+"_"+dateObj.getFullYear();
@@ -47,19 +52,28 @@ function startDateSelected(dateStr, instance){
 	
 };
 
+function addStartCalendarRow(){
+	startCalendarNumberOfRows +=1;
+	console.log("Number of rows:"+startCalendarNumberOfRows);
+	$('#start_cal_holder_div').datepicker("option",
+		"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
+	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+}
+
 function initEverything(){
 	//console.log("initEverything starts");
 	//$("#start_cal_holder_div").hide();
 	// Datepicker
 	$('#start_cal_holder_div').datepicker({
 		inline: true,
-		numberOfMonths: [1, 3],
+		numberOfMonths: [startCalendarNumberOfRows, startCalendarNumberOfCols],
 		changeYear : true,
 		changeMonth : true,
 		yearRange: '1971:2020',
 		showButtonPanel: true,
 		onSelect: startDateSelected
 	});//$('#start_cal_holder_div').datepicker({
+	startDateCurrent = $('#start_cal_holder_div').datepicker("getDate")
 	
 	$('#end_cal_holder_div').datepicker({
 		inline: true,
@@ -97,10 +111,45 @@ function initEverything(){
 		return false;
 	});
 	
+	$("#addRowStartCalendar").click(addStartCalendarRow);
+	$("#removeRowStartCalendar").click(removeStartCalendarRow);
+	
+	$("#addColStartCalendar").click(addStartCalCol);
+	$("#removeColStartCalendar").click(removeStartCalCol);
+	
+	
+	
+	
 };//function initEverythin(){
 
 
+function removeStartCalendarRow(){
+	if(startCalendarNumberOfRows>1){
+		startCalendarNumberOfRows -=1;
+		console.log("Number of rows:"+startCalendarNumberOfRows);
+		$('#start_cal_holder_div').datepicker("option",
+			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
+		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+	}
+};//function removeStartCalendarRow(){
+	
+function addStartCalCol(){
+	startCalendarNumberOfCols +=1;
+	console.log("Number of columns:"+startCalendarNumberOfCols);
+	$('#start_cal_holder_div').datepicker("option",
+			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
+	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+}//function addStartCalCol(){
 
+function removeStartCalCol(){
+	if(startCalendarNumberOfCols>1){
+		startCalendarNumberOfCols -=1;
+		console.log("Number of columns:"+startCalendarNumberOfCols);
+		$('#start_cal_holder_div').datepicker("option",
+			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
+		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+	}
+}//function removeStartCalCol(){
 
 
 
