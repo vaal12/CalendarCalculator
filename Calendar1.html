@@ -1,4 +1,4 @@
-    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
@@ -92,7 +92,22 @@
             top: 50%;
             margin-top: -8px;
         }
-        endDateHistoryButton
+        
+        #addRowStartCalendar
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #addRowStartCalendar span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
         
         
         ul#icons
@@ -119,9 +134,9 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         
-        .noBorder 
+        .noBorder
         {
-            border : 3px solid red;
+            border: 3px solid red;
         }
         
         td
@@ -133,7 +148,7 @@
 <body>
     <table class="noBorder" border="1" cellpadding="2" cellspacing="2" align="center">
         <tbody class="noBorder">
-            <tr align="center" >
+            <tr align="center">
                 <td class="style1 noBorder">
                     <h3>
                         Start</h3>
@@ -141,20 +156,45 @@
             </tr>
             <tr>
                 <td>
-                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                        cellspacing="2">
                         <tbody>
                             <tr>
                                 <td align="center">
-                                    <div id="start_cal_holder_div">
-                                    </div>
-                                </td>
-                                <td>
-                                    <p>
-                                        <a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history">
-                                            <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
-                                        </a>
-                                    </p>
-                                </td>
+                                    <table class="ui-accordion">
+                                        <tr>
+                                            <td>
+                                                Empty
+                                            </td>
+                                            <td>
+                                                <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Add column</a> <a href="#" id="addRowStartCalendar"
+                                                        class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick">
+                                                        </span>Remove column</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p align="right">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-plusthick"></span>Add column</a></p>
+                                                <p align="right">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-minusthick"></span>Remove column</a></p>
+                                            </td>
+                                            <td>
+                                                <div id="start_cal_holder_div">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <td>
+                                        <p>
+                                            <a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history">
+                                                <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
+                                            </a>
+                                        </p>
+                                    </td>
                             </tr>
                         </tbody>
                     </table>
@@ -181,7 +221,8 @@
                                     &nbsp;<input id="Text3" type="text" />months
                                 </td>
                                 <td>
-                                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                                        cellspacing="2">
                                         <tbody>
                                             <tr>
                                                 <td>
@@ -207,11 +248,38 @@
             </tr>
             <tr>
                 <td>
-                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                        cellspacing="2">
                         <tbody>
                             <tr>
                                 <td align="center">
-                                    <div id="end_cal_holder_div">
+                                <table class="ui-accordion">
+                                        <tr>
+                                            <td>
+                                                <p align="right">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-plusthick"></span>Add column</a></p>
+                                                <p align="right">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-minusthick"></span>Remove column</a></p>
+                                            </td>
+                                            <td>
+                                                <div id="end_cal_holder_div">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> Empty</td>
+                                            <td>
+                                               <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Add column</a> 
+                                               <a href="#" id="addRowStartCalendar"
+                                                        class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick">
+                                                        </span>Remove column</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
                                     </div>
                                 </td>
                                 <td>
