@@ -1,83 +1,244 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-<title>Calendar1</title>
-
-<link type="text/css"
-	href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css"
-	rel="stylesheet" />
-
-
-<script src="js/jui/js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript"
-	src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
-<script src="calendar_calc_jquery.js"></script>
-
-<style type="text/css">
-/*demo page css*/
-body {
-	font: 62.5% "Trebuchet MS", sans-serif;
-	margin: 50px;
-}
-
-.demoHeaders {
-	margin-top: 2em;
-}
-
-#dialog_link {
-	padding: .4em 1em .4em 20px;
-	text-decoration: none;
-	position: relative;
-}
-
-#dialog_link span.ui-icon {
-	margin: 0 5px 0 0;
-	position: absolute;
-	left: .2em;
-	top: 50%;
-	margin-top: -8px;
-}
-
-ul#icons {
-	margin: 0;
-	padding: 0;
-}
-
-ul#icons li {
-	margin: 2px;
-	position: relative;
-	padding: 4px 0;
-	cursor: pointer;
-	float: left;
-	list-style: none;
-}
-
-ul#icons span.ui-icon {
-	float: left;
-	margin: 0 4px;
-}
-</style>
-
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <title>Calendar1</title>
+    <link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+    <script src="js/jui/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script src="calendar_calc_jquery.js"></script>
+    <style type="text/css">
+        /*demo page css*/body
+        {
+            font: 62.5% "Trebuchet MS" , sans-serif;
+            margin: 50px;
+        }
+        .demoHeaders
+        {
+            margin-top: 2em;
+        }
+        #dialog_link
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #dialog_link span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        #updateStartDateButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #updateStartDateButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #updateEndDateButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #updateEndDateButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #startDateHistorButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #startDateHistorButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        
+        
+        #endDateHistoryButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #endDateHistoryButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        endDateHistoryButton
+        
+        
+        ul#icons
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul#icons li
+        {
+            margin: 2px;
+            position: relative;
+            padding: 4px 0;
+            cursor: pointer;
+            float: left;
+            list-style: none;
+        }
+        ul#icons span.ui-icon
+        {
+            float: left;
+            margin: 0 4px;
+        }
+        .style1
+        {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .noBorder 
+        {
+            border : 3px solid red;
+        }
+        
+        td
+        {
+            border: 2 solid blue;
+        }
+    </style>
 </head>
 <body>
-
-	<table style="text-align: left;" border="1" cellpadding="2"
-		cellspacing="2" align="center">
-		<tbody>
-			<tr align="center">
-				<td>Start</td>
-			</tr>
-			<tr>
-				<td>
-					<table style="text-align: left; width: 100%;" border="1"
-						cellpadding="2" cellspacing="2">
-						<tbody>
-							<tr>
-								<td><span id="history_popup"
-									title=".ui-icon-arrowthick-1-w"
-									class="ui-icon ui-icon-arrowthick-1-w"></span> <!-- ui-dialog -->
-									<!-- <div class="ui-overlay">
+    <table class="noBorder" border="1" cellpadding="2" cellspacing="2" align="center">
+        <tbody class="noBorder">
+            <tr align="center" >
+                <td class="style1 noBorder">
+                    <h3>
+                        Start</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    <div id="start_cal_holder_div">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p>
+                                        <a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history">
+                                            <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        Between</h3>
+                                </td>
+                                <td align="center" valign="middle">
+                                    <input id="Text1" type="text" />
+                                    days
+                                </td>
+                                <td>
+                                    <input id="Text2" type="text" />
+                                    weeks
+                                </td>
+                                <td>
+                                    &nbsp;<input id="Text3" type="text" />months
+                                </td>
+                                <td>
+                                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>
+                                                        <a href="#" id="updateStartDateButton" class="ui-state-default ui-corner-all"><span
+                                                            class="ui-icon ui-icon-triangle-1-n"></span>Update Start date</a></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p>
+                                                        <a href="#" id="updateEndDateButton" class="ui-state-default ui-corner-all">Update End
+                                                            date<span class="ui-icon ui-icon-triangle-1-s"></span></a></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    <div id="end_cal_holder_div">
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history">
+                                        <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="style1">
+                    <h3>
+                        End</h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div id="dialog" title="Dialog Title">
+        <p id="startDateHistoryContent">
+        </p>
+    </div>
+    <!-- ui-dialog -->
+    <!-- <div class="ui-overlay">
 										<div class="ui-widget-overlay"></div>
 										<div class="ui-widget-shadow ui-corner-all"
 											style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div>
@@ -95,83 +256,6 @@ ul#icons span.ui-icon {
 												consequat.</p>
 										</div>
 									</div> -->
-
-
-
-
-									<div id="dialog" title="Dialog Title">
-										<p id="startDateHistoryContent"></p>
-
-									</div> <span id="start_year_back"
-									class="ui-icon ui-icon-circle-arrow-w"></span></td>
-								<td align=center>
-									<div id="start_cal_holder_div"></div>
-								</td>
-								<td>
-									<p>
-										<a href="#" id="dialog_link"
-											class="ui-state-default ui-corner-all"><span
-											class="ui-icon ui-icon-newwin"></span>history</a>
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table style="text-align: left; width: 100%;" border="1"
-						cellpadding="2" cellspacing="2">
-						<tbody>
-							<tr>
-								<td>Between</td>
-								<td>XX days</td>
-								<td>XX weeks</td>
-								<td>XX months</td>
-								<td>
-									<table style="text-align: left; width: 100%;" border="1"
-										cellpadding="2" cellspacing="2">
-										<tbody>
-											<tr>
-												<td><button value="Recalculate Start" type="button"></button></td>
-											</tr>
-											<tr>
-												<td><button value="Recalculate End" type="button"></button></td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table style="text-align: left; width: 100%;" border="1"
-						cellpadding="2" cellspacing="2">
-						<tbody>
-							<tr>
-								<td>EndNavLeft</td>
-								<td align=center>
-									<div id="end_cal_holder_div"></div>
-								</td>
-
-								<td>EndNavRight</td>
-							</tr>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-			<tr align="center">
-				<td>End</td>
-			</tr>
-		</tbody>
-	</table>
-	<br>
-
-
-
+    <!--<span id="start_year_back" class="ui-icon ui-icon-circle-arrow-w"></span>-->
 </body>
 </html>
