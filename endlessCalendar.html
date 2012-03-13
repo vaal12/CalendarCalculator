@@ -3,12 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>testLayout</title>
+    <title>Simple endless calendar v1.1</title>
     <meta name="author" content="vaal12" />
     <!-- Date: 2012-03-13 -->
     <link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
     <script src="js/jui/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript" src="js/DP_DateExtensions.js"></script>
     <script src="endlessCalendar.js"></script>
     <style type="text/css">
         body
@@ -35,6 +36,7 @@
         }
         #calendarPlace
         {
+        	
             margin:20px;
             padding:20px;
         }
@@ -61,11 +63,30 @@
             top: 50%;
             margin-top: -8px;
         }
+        
+        .infoStyle{
+        	font: 2em sans-serif;
+        	margin:5px;
+        }
+        
     </style>
 </head>
 <body style="margin: 0px; text-align: center;">
     <div id="superHolder">
         <table align="center">
+        	<tr>
+        		<td>
+               	<span id="startDateText" class="infoStyle">Start date: not selected</span>
+               	&nbsp;&nbsp;&nbsp;
+               	<span id="betweenDays" class="infoStyle">Calendar days between: NA<span>
+               </td>
+        	</tr>
+        	<tr>
+        		<td>
+               	
+               	<span id="endDateText" class="infoStyle">End date: not selected</span
+               </td>
+        	</tr>
             <tr align="center">
                
                 <td align="center">
@@ -92,5 +113,6 @@
     </td>
     
     </tr></table> </div>
+    <div id="daysMillis" style="font-size:1.5em"></div>
 </body>
 </html>

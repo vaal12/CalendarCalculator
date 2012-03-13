@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Simple endless calendar v1.1</title>
+		<meta name="author" content="vaal12" />
+		<link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+		<script type="text/javascript">
+		daysInMonthsArray = [31, 28, 31, 
+							30, 31, 30, 
+							31, 31, 30, 
+							31, 30, 31];
+		$(document).ready(function(){
+			$('#calendarPlace').datepicker({
+			inline: true,
+			numberOfMonths: [1, 2],
+			changeYear : true,
+			changeMonth : true,
+			yearRange: '1971:2020',
+			showButtonPanel: true,
+			onSelect: dateSelected
+			});//$('#calendarPlace').datepicker({
+		});
+				
+		function add2Page(html2Add){
+			$("#calculationPlace").html($("#calculationPlace").html()+html2Add);
+		};
+		function dateSelected(dateStr, instance){
+			$("#calculationPlace").html("");
+			console.log("Date selected:"+dateStr);
+			selectedDate = new Date(dateStr);
+			console.log("Date parsed:"+selectedDate.toLocaleString());
+			selectedMonth = selectedDate.getMonth();
+			selectedYear = selectedDate.getFullYear();
+			currentMonth = selectedMonth;
+			
+			millisInDay = 86400000;
+			
+			//startDate = new Date(selectedMonth+"/01/"+selectedYear);
+			startDate = selectedDate;
+			startDate.setDate(1);
+			console.log("Start date"+startDate.toLocaleString());
+			add2Page("Start date:"+startDate.toLocaleString()+"<br>");
+			//Month 1 calculation
+			numberofDaysInMonth = daysInMonthsArray[selectedMonth];
+			isLeap = new Date(selectedYear,1,29).getDate() == 29;
+			if(selectedMonth==1 && isLeap){
+				console.log("THis is leap year");
+				numberofDaysInMonth +=1;
+			};
+			i=1;
+			//add2Page("Number of days:"+numberofDaysInMonth);
+			currentDate = new Date(startDate);
+			
+			while(i<(numberofDaysInMonth)) {
+				millisCalculated = ((i)*millisInDay);//Number of milliseconds which should be
+				currentDate.setDate(i+1);
+				add2Page("Date:"+currentDate.toLocaleString());
+				add2Page("__Calc ms:"+millisCalculated+"___");
+				
+				//millisDate = currentDate.getTime()-startDate.getTime();
+				millisDate = Date.UTC(currentDate.getFullYear(),
+							currentDate.getMonth(),
+							currentDate.getDate())- 
+							Date.UTC(startDate.getFullYear(),
+									startDate.getMonth(),
+									startDate.getDate());
+				add2Page("__Date ms:"+millisDate+"___");
+				
+				add2Page("__Difference:"+(millisCalculated - millisDate)+"___");
+				
+				add2Page("<br>");
+				i+=1;
+			};//while(i<=numberofDaysInMonth) {
+			prevMonth_i = i;
+			add2Page("<br><br><b>Next month<b><br>");
+			currentMonth +=1;
+			if(currentMonth>11){
+				currentMonth = 0;
+				selectedYear +=1;
+			};
+			startDateNewMonth = new Date(selectedYear, currentMonth, 1, 0, 0, 0, 0);
+			//console.log("New date:"+startDate.toLocaleString());
+			
+			add2Page("Start date:"+startDateNewMonth.toLocaleString()+"<br>");
+			//Month 1 calculation
+			numberofDaysInMonth = daysInMonthsArray[currentMonth];
+			isLeap = new Date(selectedYear,1,29).getDate() == 29;
+			if(selectedMonth==1 && isLeap){
+				console.log("THis is leap year");
+				numberofDaysInMonth +=1;
+			};
+			currentDate = new Date(startDateNewMonth);
+			i=1;
+			while(i<(numberofDaysInMonth)) {
+				millisCalculated = ((i+prevMonth_i)*millisInDay);//Number of milliseconds which should be
+				currentDate.setDate(i+1);
+				add2Page("Date:"+currentDate.toLocaleString());
+				add2Page("__Calc ms:"+millisCalculated+"___");
+				
+				//millisDate = currentDate.getTime()-startDate.getTime();
+				millisDate = Date.UTC(currentDate.getFullYear(),
+							currentDate.getMonth(),
+							currentDate.getDate())- 
+							Date.UTC(startDate.getFullYear(),
+									startDate.getMonth(),
+									startDate.getDate());
+				add2Page("__Date ms:"+millisDate+"___");
+				
+				add2Page("__Difference:"+(millisCalculated - millisDate)+"___");
+				
+				add2Page("<br>");
+				i+=1;
+			};//while(i<=numberofDaysInMonth) {
+				
+				/**marOtherDate = new Date("03/"+i+"/"+year);
+		
+		addStr = $("#daysMillis").html() + i+":"+millisCalculated;
+		millisDate = marOtherDate.getTime()-mar1Date.getTime();
+		addStr = addStr + "  ________"+millisDate+":(calculated)";
+		addStr = addStr + "_________Difference:"+(millisCalculated - millisDate)+"<br>";
+		$("#daysMillis").html(addStr);
+		i+=1;*/
+	
+		}
+		</script>
+		<style type="text/css">
+            body {
+
+                margin: 50px;
+            }
+		</style>
+	</head>
+	<body style="margin: 0px; text-align: center;">
+		<div id="calendarPlace" style="font: 62.5% sans-serif;">
+			
+		</div>
+		<div id="calculationPlace" style="text-align: left">
+			<b>Calculations here</b><br>
+		</div>
+	</body>
+</html>
