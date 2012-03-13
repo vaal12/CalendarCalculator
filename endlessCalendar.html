@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>testLayout</title>
+		<meta name="author" content="vaal12" />
+		<!-- Date: 2012-03-13 -->
+		<link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+		<script src="endlessCalendar.js"></script>
+		<style type="text/css">
+            body {
+                font: 62.5% "Trebuchet MS", sans-serif;
+                margin: 50px;
+            }
+            #superHolder{
+            	float:left;
+            	background-color: yellow;
+            	border:1px green solid;
+            	width:100%;
+            	
+            }
+            #mainPlaceholder {
+                background: red;
+                border: 1px;
+                float:left;
+                margin: 0px auto;
+            }
+            #colButtons {
+                float:right;
+            }
+            #calendarPlace {
+            	    
+            }
+            #rowButtons {
+                float:left;
+            }
+            #horzDivider {
+                
+                width: 3000px;
+            }
+		</style>
+	</head>
+	<body style="margin:0px; text-align: center;">
+		<div id="superHolder">
+		<table align="center"><tr align="center">
+			<td></td>
+			<td align="center">
+		<div id="mainPlaceholder">
+			Placeholder
+			
+			<div id="colButtons"> Column buttons </div>
+			<div id="rowButtons"> Row buttons </div>
+			<div id="calendarContainer" style="background-color:green;width:100%">
+				<div id="calendarPlace"></div>
+			</div>
+			
+			<!--div id"horzDivider"></div-->
+			
+			</div>
+		</div>
+		</td>
+		<td></td></tr></table>
+		</div>
+	</body>
+</html>
