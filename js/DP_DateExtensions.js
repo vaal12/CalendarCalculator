@@ -923,7 +923,13 @@ Date.prototype.diff = function(CompareDate, DatePart) {
 		case "days":
 		case "weeks":
 				// Get the Base Difference (the difference in ms)
-			var BaseDiff = Date1.getTime() - Date2.getTime();
+			//var BaseDiff = Date1.getTime() - Date2.getTime();
+			var BaseDiff = Date.UTC(Date1.getFullYear(),
+							Date1.getMonth(),
+							Date1.getDate()) - 
+							Date.UTC(Date2.getFullYear(),
+							Date2.getMonth(),
+							Date2.getDate());
 				// Set the Diff
 			Diff = parseInt( BaseDiff / Factors[DatePart] );
 			break;
