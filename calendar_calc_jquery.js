@@ -3,6 +3,8 @@
 startDatesHistory = new Array();
 startDateCurrent = -1;
 
+endDateCurrent = -1;
+
 startCalendarNumberOfRows = 1;
 startCalendarNumberOfCols = 3;
 
@@ -34,6 +36,8 @@ function startDateSelected(dateStr, instance){
 	startDatesHistory.push(dateStr);
 	startDateCurrent = dateStr;
 	dateObj = new Date(dateStr);
+	startDateCurrent = dateObj;
+	$("#startDateLabel").text(dateObj.toLocaleDateString());
 	//console.log("We have date object:"+dateObj.toLocaleString());
 	idString = (dateObj.getMonth()+1)+"_"+dateObj.getDate()+"_"+dateObj.getFullYear();
 	newLinkStr = "<a href='#' id='"+idString+"'>"+dateObj.toLocaleString()+"</a>";
@@ -49,8 +53,29 @@ function startDateSelected(dateStr, instance){
 		$("#"+idString).click(onStartDateHistoryClick);
 		i+=1;
 	};
-	
+	updateDateDifferences();
 };
+
+function startEndSelected(dateStr, instance){
+	endDateCurrent = dateStr;
+	dateObj = new Date(dateStr);
+	endDateCurrent = dateObj;
+	$("#endDateLabel").text(dateObj.toLocaleDateString());
+	updateDateDifferences();
+};
+
+function updateDateDifferences(){
+	if((startDateCurrent != -1) && (endDateCurrent != -1)){
+		calendarDays = endDateCurrent.diff(startDateCurrent, "days");
+		workDays = endDateCurrent.diff(startDateCurrent, "businessdays");
+		weeks = endDateCurrent.diff(startDateCurrent, "weeks");
+		months = endDateCurrent.diff(startDateCurrent, "months");
+		$("#calendarDaysInput").val(calendarDays);
+		$("#workDaysInput").val(workDays);
+		$("#weeksInput").val(weeks);
+		$("#monthsInput").val(months);
+	};
+}
 
 function addStartCalendarRow(){
 	startCalendarNumberOfRows +=1;
@@ -73,11 +98,12 @@ function initEverything(){
 		showButtonPanel: true,
 		onSelect: startDateSelected
 	});//$('#start_cal_holder_div').datepicker({
-	startDateCurrent = $('#start_cal_holder_div').datepicker("getDate")
+	startDateCurrent = new Date($('#start_cal_holder_div').datepicker("getDate"));
 	
 	$('#end_cal_holder_div').datepicker({
 		inline: true,
-		numberOfMonths: [1, 3]
+		numberOfMonths: [1, 3],
+		onSelect: startEndSelected
 	});//$('#end_cal_holder_div').datepicker({
 	
 	$("#start_year_back").click(function(){

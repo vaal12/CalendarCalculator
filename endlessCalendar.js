@@ -26,21 +26,7 @@ $(document).ready(function(){
 	$("#addCol").click(addCol);
 	$("#removeCol").click(removeCol);
 	
-	i=2;
-	millisInDay = 86400000;
-	year = "2004";
-	mar1Date = new Date("03/01/"+year);
-	$("#daysMillis").html("Start date:"+mar1Date.toLocaleString()+"<br>");
-	while(i<32) {
-		marOtherDate = new Date("03/"+i+"/"+year);
-		millisCalculated = ((i-1)*millisInDay);
-		addStr = $("#daysMillis").html() + i+":"+millisCalculated;
-		millisDate = marOtherDate.getTime()-mar1Date.getTime();
-		addStr = addStr + "  ________"+millisDate+":(calculated)";
-		addStr = addStr + "_________Difference:"+(millisCalculated - millisDate)+"<br>";
-		$("#daysMillis").html(addStr);
-		i+=1;
-	}
+	
 	
 });//$(document).ready(function(){
 
@@ -73,6 +59,7 @@ function dateSelected(dateStr, instance){
 	startDateTime = startDate.getTime();
 	
 	log2Console("Difference between dates:"+diffDays);
+	$("#betweenDays").text("Calendar days between:"+diffDays);
 	
 	
 }

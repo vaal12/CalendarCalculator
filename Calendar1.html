@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-    <title>Calendar1</title>
+    <title>Calendar calculator v0.1</title>
     <link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
     <script src="js/jui/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript" src="js/DP_DateExtensions.js"></script>
     <script src="calendar_calc_jquery.js"></script>
     <style type="text/css">
         /*demo page css*/body
@@ -122,9 +123,6 @@
             top: 50%;
             margin-top: -8px;
         }
-        
-        
-        
         ul#icons
         {
             margin: 0;
@@ -156,7 +154,15 @@
         
         td
         {
-            border: 2 solid blue;
+            border: 2px solid blue;
+        }
+        .calendarLabel 
+        {
+            font: 1.5em Verdana;
+        }
+        .dayNumberField {
+        	width : 50px;
+        	text-align : center;
         }
     </style>
 </head>
@@ -165,8 +171,9 @@
         <tbody class="noBorder">
             <tr align="center">
                 <td class="style1 noBorder">
-                    <h3>
-                        Start</h3>
+                        <span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span></span>
+                        
+                        (include <input type=checkbox title="Include" checked/>)
                 </td>
             </tr>
             <tr>
@@ -225,16 +232,19 @@
                                     <h3>
                                         Between</h3>
                                 </td>
-                                <td align="center" valign="middle">
-                                    <input id="Text1" type="text" />
-                                    days
+                                <td align="left" valign="middle">
+                                    <div><input maxlength="6" id="calendarDaysInput" class="dayNumberField"   type="text" />
+                                    calendar days</div>
+                                    <div><input id="workDaysInput" class="dayNumberField" type="text" />
+                                    work days</div>
                                 </td>
                                 <td>
-                                    <input id="Text2" type="text" />
+                                    <input id="weeksInput" class="dayNumberField" type="text" />
                                     weeks
                                 </td>
                                 <td>
-                                    &nbsp;<input id="Text3" type="text" />months
+                                    <input id="monthsInput" class="dayNumberField" type="text" />
+                                    months
                                 </td>
                                 <td>
                                     <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
@@ -310,8 +320,10 @@
             </tr>
             <tr align="center">
                 <td class="style1">
-                    <h3>
-                        End</h3>
+                    <span class="calendarLabel">End:<span id="endDateLabel"> no date selected</span> </span>
+                        
+                        (include <input type=checkbox title="Include" checked/>)
+                        
                 </td>
             </tr>
         </tbody>
