@@ -174,9 +174,13 @@
         <tbody class="noBorder">
             <tr align="center">
                 <td class="style1 noBorder" align="left">
-                	<!--input id="endDateIncludeCheckbox2" class="hiddenField" type=checkbox title="2Include into range calculations. E.g. it will be added to the number of days" checked value=""/-->
                 	<!-- Why is is the first checkbox is always not checked on the page.
                 		If this (before this) will be removed - startDateIncludeCheckbox will become unchecked for some reason.
+                		
+                		This was due to memory effect of the browser - that is only when page is reloaded 
+                		the check box save it's state from previous page.
+                		I have added checking those boxes in the initEverything and the issue is solved.
+                		
                 	--> 
                 	<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
            

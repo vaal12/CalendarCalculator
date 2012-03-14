@@ -183,6 +183,11 @@ function initEverything(){
 	$("#addColStartCalendar").click(addStartCalCol);
 	$("#removeColStartCalendar").click(removeStartCalCol);
 	
+	//Good infom on jquery and checkboxes
+	//http://www.electrictoolbox.com/check-uncheck-checkbox-jquery/
+	$('#startDateIncludeCheckbox').attr('checked', true);
+	$('#endDateIncludeCheckbox').attr('checked', true);
+	
 	$("#startDateIncludeCheckbox").change(onStartOrStopDateIncludeChange);
 	$("#endDateIncludeCheckbox").change(onStartOrStopDateIncludeChange);
 	
