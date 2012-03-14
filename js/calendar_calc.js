@@ -1,7 +1,6 @@
 //Version of this file are before (and including) commit fdc0744d46cd6229ab6f9d3c66d659257b313cdd
 // Path then was calendar_calc_jquery.js in the root directory
 
-
 startDatesHistory = new Array();
 
 startDateCurrent = -1;
@@ -172,12 +171,36 @@ function updateDateDifferences(){
 
 function addStartCalendarRow(){
 	startCalendarNumberOfRows +=1;
-	console.log("Number of rows:"+startCalendarNumberOfRows);
 	$('#start_cal_holder_div').datepicker("option",
 		"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
-}
+};
 
+function removeStartCalendarRow(){
+	if(startCalendarNumberOfRows>1){
+		startCalendarNumberOfRows -=1;
+		$('#start_cal_holder_div').datepicker("option",
+			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
+		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+	}
+};//function removeStartCalendarRow(){
+	
+function addEndCalendarRow(){
+	endCalendarNumberOfRows +=1;
+	$('#end_cal_holder_div').datepicker("option",
+		"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
+};
+
+function removeEndCalendarRow(){
+	if(endCalendarNumberOfRows>1){
+		endCalendarNumberOfRows -=1;
+		console.log("Number of rows:"+startCalendarNumberOfRows);
+		$('#end_cal_holder_div').datepicker("option",
+			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
+	}
+};//function removeEndCalendarRow(){
 
 	
 function hideShowStartCalendarExpansionControls(evt) {
@@ -216,21 +239,9 @@ function onStartOrStopDateIncludeChange(eventData){
 	updateDateDifferences();
 }
 
-
-function removeStartCalendarRow(){
-	if(startCalendarNumberOfRows>1){
-		startCalendarNumberOfRows -=1;
-		console.log("Number of rows:"+startCalendarNumberOfRows);
-		$('#start_cal_holder_div').datepicker("option",
-			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
-		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
-	}
-};//function removeStartCalendarRow(){
 	
 function addStartCalCol(){
-	
 	startCalendarNumberOfCols +=1;
-	console.log("Number of columns:"+startCalendarNumberOfCols);
 	$('#start_cal_holder_div').datepicker("option",
 			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
@@ -239,10 +250,27 @@ function addStartCalCol(){
 function removeStartCalCol(){
 	if(startCalendarNumberOfCols>1){
 		startCalendarNumberOfCols -=1;
-		console.log("Number of columns:"+startCalendarNumberOfCols);
 		$('#start_cal_holder_div').datepicker("option",
 			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+	}
+}//function removeStartCalCol(){
+
+
+	
+function addEndCalCol(){
+	endCalendarNumberOfCols +=1;
+	$('#end_cal_holder_div').datepicker("option",
+			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
+}//function addStartCalCol(){
+
+function removeEndCalCol(){
+	if(endCalendarNumberOfCols>1){
+		endCalendarNumberOfCols -=1;
+		$('#end_cal_holder_div').datepicker("option",
+			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 	}
 }//function removeStartCalCol(){
 

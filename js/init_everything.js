@@ -84,10 +84,10 @@ function initEverything(){
  	$("#removeColEndCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
- 	$("#addRowEndCalendar").click(addStartCalendarRow);
-	$("#removeRowEndCalendar").click(removeStartCalendarRow);
-	$("#addColEndCalendar").click(addStartCalCol);
-	$("#removeColEndCalendar").click(removeStartCalCol);
+ 	$("#addRowEndCalendar").click(addEndCalendarRow);
+	$("#removeRowEndCalendar").click(removeEndCalendarRow);
+	$("#addColEndCalendar").click(addEndCalCol);
+	$("#removeColEndCalendar").click(removeEndCalCol);
 	
 	//showStartCalendarExpansionControls
 	$("#showStartCalendarExpansionControls").button({
