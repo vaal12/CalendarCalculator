@@ -55,11 +55,13 @@ body {
     margin-top: -8px;
 }
 .jQuerifiedButton {
+    height:0px;
     padding: .4em 1em .4em 20px;
     text-decoration: none;
     position: relative;
 }
 .jQuerifiedButtonSpan {
+    height:0px;
     margin: 0 5px 0 0;
     position: absolute;
     left: .2em;
@@ -78,18 +80,7 @@ body {
     top: 50%;
     margin-top: -8px;
 }
-#addRowStartCalendar {
-    padding: .4em 1em .4em 20px;
-    text-decoration: none;
-    position: relative;
-}
-#addRowStartCalendar span.ui-icon {
-    margin: 0 5px 0 0;
-    position: absolute;
-    left: .2em;
-    top: 50%;
-    margin-top: -8px;
-}
+
 ul#icons {
     margin: 0;
     padding: 0;

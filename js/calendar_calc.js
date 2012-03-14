@@ -15,6 +15,8 @@ endCalendarNumberOfCols = 3;
 
 disableCalculations = false;
 
+startCalendarExpansionControlsShown = false;
+
 
 $(document).ready(function(){
 	//console.log("Hello //console");
@@ -233,12 +235,33 @@ function initEverything(){
 		return false;
 	});
 	
+	$("#addRowStartCalendar").button({
+            icons: {primary: "ui-icon-plusthick"},
+ 	});
+ 	$("#removeRowStartCalendar").button({
+            icons: {primary: "ui-icon-minusthick"},
+ 	});
+ 	$("#addColStartCalendar").button({
+            icons: {primary: "ui-icon-plusthick"},
+ 	});
+ 	$("#removeColStartCalendar").button({
+            icons: {primary: "ui-icon-minusthick"},
+ 	});
+ 	
+	
 	$("#addRowStartCalendar").click(addStartCalendarRow);
 	$("#removeRowStartCalendar").click(removeStartCalendarRow);
 	
 	$("#addColStartCalendar").click(addStartCalCol);
 	$("#removeColStartCalendar").click(removeStartCalCol);
 	
+	$("#showStartCalendarExpansionControls").button({
+		icons: {primary: "ui-icon-carat-1-n"},
+		text: false
+	});
+	$("#showStartCalendarExpansionControls").css('height','15px').css('width','15px').css('margin', '0px');
+
+	$("#showStartCalendarExpansionControls").click(hideShowStartCalendarExpansionControls);
 	//Good infom on jquery and checkboxes
 	//http://www.electrictoolbox.com/check-uncheck-checkbox-jquery/
 	$('#startDateIncludeCheckbox').attr('checked', true);
@@ -257,8 +280,26 @@ function initEverything(){
 			resizable : false,
 			show: "slide",
 	});//$("#startDateAfterDialog").dialog({
+    
+    $("#startCalendarAddButtonsDiv").hide();
 	
 };//function initEverythin(){
+	
+function hideShowStartCalendarExpansionControls(evt) {
+	if(startCalendarExpansionControlsShown) {
+		$( "#startCalendarAddButtonsDiv" ).hide( "blind", {}, 1000);
+		$("#showStartCalendarExpansionControls").button("option", "icons", 
+				{primary:'ui-icon-carat-1-n'} );
+		startCalendarExpansionControlsShown = false;
+	}
+	else {
+		$("#startCalendarAddButtonsDiv" ).show( "blind", {}, 1000);
+		$("#showStartCalendarExpansionControls").button("option", "icons", 
+				{primary:'ui-icon-carat-1-s'} );
+		
+		startCalendarExpansionControlsShown = true;
+	}
+}
 	
 function onStartOrStopDateIncludeChange(eventData){
 	//console.log("Data changed");
@@ -277,6 +318,7 @@ function removeStartCalendarRow(){
 };//function removeStartCalendarRow(){
 	
 function addStartCalCol(){
+	
 	startCalendarNumberOfCols +=1;
 	console.log("Number of columns:"+startCalendarNumberOfCols);
 	$('#start_cal_holder_div').datepicker("option",

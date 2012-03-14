@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
 		<script type="text/javascript" src="js/DP_DateExtensions.js"></script>
 		<script src="js/calendar_calc.js"></script>
-		<style type="text/css">        
+		<style type="text/css">
 		</style>
 	</head>
 	<body>
@@ -27,19 +27,45 @@
 						<tbody>
 							<tr>
 								<td align="center">
-								<table class="ui-accordion">
-									<tr>
-										<td> &nbsp; </td>
-										<td align="right"><a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add row</a><a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"> </span>Remove row</a></td>
+								<table>
+									<!-- @formatter:off -->
+									<tr> <td></td>
+										<td align="right">
+											<button id="showStartCalendarExpansionControls" ></button>
+											<div id="startCalendarAddButtonsDiv">
+												<table width="100%">
+													<tr>
+														<td align="left">
+															<button id="addRowStartCalendar">Add row</button>
+															<button id="removeRowStartCalendar">Remove row</button>
+															
+															
+														</td>
+														<td align="right">
+															<button id="removeColStartCalendar">Remove column</button>
+															<button id="addColStartCalendar">Add column</button>
+														</td>
+													</tr>
+												</table>
+											<!--p align="right">
+											<a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> 
+												<span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a>
+											</p>
+											<p align="right">
+											<a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> 
+												<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a>
+											</p  -->	
+											<!--a href="#" id="addRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all"> 
+											<span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add row</a>
+											<a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all"> 
+											<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick">&nbsp;</span>Remove row</a-->
+											</div>
+										</td>
 									</tr>
+									<!-- @formatter:on -->
 									<tr>
 										<td>
-										<p align="right">
-											<a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a>
-										</p>
-										<p align="right">
-											<a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a>
-										</p></td>
+										</td>
 										<td><div id="start_cal_holder_div"></div></td>
 									</tr>
 								</table><td>
@@ -52,7 +78,7 @@
 				</tr>
 				<tr>
 					<td>
-					<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+					<table class="ui-corner-all" style="text-align: left; width: 100%; border: 1px red solid; " cellpadding="2" cellspacing="2">
 						<tbody>
 							<tr>
 								<td><h3> Between</h3></td>
@@ -158,15 +184,16 @@
 			Would you like to switch dates?
 			If you choose no, between calculations will not be performed.
 		</div>
-		
 		<!-- ui-dialog -->
 		<!-- <div class="ui-overlay">
 		<div class="ui-widget-overlay"></div>
 		<div class="ui-widget-shadow ui-corner-all"
-		style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div>
+		style="width: 302px; height: 152px; position: absolute; left: 50px; top:
+		30px;"></div>
 		</div>
 		<div
-		style="position: absolute; width: 280px; height: 130px; left: 50px; top: 30px; padding: 10px;"
+		style="position: absolute; width: 280px; height: 130px; left: 50px; top: 30px;
+		padding: 10px;"
 		class="ui-widget ui-widget-content ui-corner-all">
 		<div class="ui-dialog-content ui-widget-content"
 		style="background: none; border: 0;">
