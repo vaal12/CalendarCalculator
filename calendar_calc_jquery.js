@@ -8,6 +8,8 @@ endDateCurrent = -1;
 startCalendarNumberOfRows = 1;
 startCalendarNumberOfCols = 3;
 
+endCalendarNumberOfRows = 1;
+endCalendarNumberOfCols = 3;
 
 
 $(document).ready(function(){
@@ -64,10 +66,42 @@ function startEndSelected(dateStr, instance){
 	updateDateDifferences();
 };
 
+function isWorkDay(dateObj){
+	weekDay = dateObj.getDay();
+	if((weekDay>0) && (weekDay<6)) return true;
+	else return false;
+}
+
 function updateDateDifferences(){
 	if((startDateCurrent != -1) && (endDateCurrent != -1)){
+		startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+		endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+		//console.log(startDateChecked);
 		calendarDays = endDateCurrent.diff(startDateCurrent, "days");
+		if (startDateCurrent.getTime() == endDateCurrent.getTime()) calendarDays=1;
+		else {
+			if(endDateChecked) calendarDays+=1;
+			if(!startDateChecked) calendarDays-=1;
+		}
+		
 		workDays = endDateCurrent.diff(startDateCurrent, "businessdays");
+		/**
+		 *  This is odd, for some reason calendar days are calculated by diff as 
+		 * including the first day, while working days are calculated as strict number
+		 * of days BETWEEN dates with noted exception of when dates are the same.
+		 * So in case if both dates =16.Apr-2012 (Monday) difference is 1,
+		 * while if date1 - 16Apr2012 and date2 - 17Apr2012 difference is 0
+		 * if date 1-16Apr2012 and date2 - 18Apr2012 difference is 1
+		 * To check the library code for that. 
+		 */
+		if (startDateCurrent.getTime() == endDateCurrent.getTime()) workDays=1;
+		else {
+			if(  (startDateChecked) 
+				&& 
+				 (isWorkDay(startDateCurrent))) { workDays +=1; }
+			if(endDateChecked && isWorkDay(endDateCurrent)) workDays+=1;
+		}//else if (startDateCurrent == endDateCurrent) workDays=0;
+		
 		weeks = endDateCurrent.diff(startDateCurrent, "weeks");
 		months = endDateCurrent.diff(startDateCurrent, "months");
 		$("#calendarDaysInput").val(calendarDays);
@@ -96,13 +130,19 @@ function initEverything(){
 		changeMonth : true,
 		yearRange: '1971:2020',
 		showButtonPanel: true,
+		showWeek : true,
 		onSelect: startDateSelected
 	});//$('#start_cal_holder_div').datepicker({
 	startDateCurrent = new Date($('#start_cal_holder_div').datepicker("getDate"));
 	
 	$('#end_cal_holder_div').datepicker({
 		inline: true,
-		numberOfMonths: [1, 3],
+		numberOfMonths: [endCalendarNumberOfRows, endCalendarNumberOfCols],
+		changeYear : true,
+		changeMonth : true,
+		yearRange: '1971:2020',
+		showButtonPanel: true,
+		showWeek : true,
 		onSelect: startEndSelected
 	});//$('#end_cal_holder_div').datepicker({
 	
@@ -143,12 +183,16 @@ function initEverything(){
 	$("#addColStartCalendar").click(addStartCalCol);
 	$("#removeColStartCalendar").click(removeStartCalCol);
 	
-	
+	$("#startDateIncludeCheckbox").change(onStartOrStopDateIncludeChange);
+	$("#endDateIncludeCheckbox").change(onStartOrStopDateIncludeChange);
 	
 	
 };//function initEverythin(){
 	
-	
+function onStartOrStopDateIncludeChange(eventData){
+	//console.log("Data changed");
+	updateDateDifferences();
+}
 
 
 function removeStartCalendarRow(){

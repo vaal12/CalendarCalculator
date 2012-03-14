@@ -1,6 +1,9 @@
 startCalendarNumberOfRows = 1;
 startCalendarNumberOfCols = 3;
 
+endCalendarNumberOfRows = 1;
+endCalendarNumberOfCols = 3;
+
 startDate = null;
 endDate = null;
 
@@ -18,16 +21,12 @@ $(document).ready(function(){
 		showButtonPanel: true,
 		onSelect: dateSelected
 	});//$('#start_cal_holder_div').datepicker({
-	
 		
 	$("#addRow").click(addRow);
 	$("#removeRow").click(removeRow);
 	
 	$("#addCol").click(addCol);
 	$("#removeCol").click(removeCol);
-	
-	
-	
 });//$(document).ready(function(){
 
 function log2Console(logStr){
