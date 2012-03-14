@@ -1,183 +1,380 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>Calendar calculator v0.1</title>
-		<link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
-		<link type="text/css" href="css/calendar_calculator.css" rel="stylesheet" />
-		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
-		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
-		<script type="text/javascript" src="js/DP_DateExtensions.js"></script>
-		<script src="calendar_calc_jquery.js"></script>
-		<style type="text/css">        
-		</style>
-	</head>
-	<body>
-		<table class="noBorder" border="1" cellpadding="1" cellspacing="1" align="center" style="background-color: white; ">
-			<tbody class="noBorder">
-				<tr align="center" style="background-color: white; ">
-					<td class="style1 noBorder" align="left">
-					<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
-					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span></td>
-				</tr>
-				<tr>
-					<td>
-					<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
-					cellspacing="2">
-						<tbody>
-							<tr>
-								<td align="center">
-								<table class="ui-accordion">
-									<tr>
-										<td> &nbsp; </td>
-										<td align="right"><a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add row</a><a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"> </span>Remove row</a></td>
-									</tr>
-									<tr>
-										<td>
-										<p align="right">
-											<a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a>
-										</p>
-										<p align="right">
-											<a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a>
-										</p></td>
-										<td><div id="start_cal_holder_div"></div></td>
-									</tr>
-								</table><td>
-								<p class="hiddenField">
-									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
-								</p></td>
-							</tr>
-						</tbody>
-					</table></td>
-				</tr>
-				<tr>
-					<td>
-					<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
-						<tbody>
-							<tr>
-								<td><h3> Between</h3></td>
-								<td align="left" valign="middle">
-								<div>
-									<input maxlength="6" id="calendarDaysInput" class="dayNumberField"  readonly  type="text" />
-									calendar days
-								</div>
-								<div>
-									<input id="workDaysInput" class="dayNumberField" type="text" />
-									work days
-								</div></td>
-								<td style="visibility: collapse">
-								<input id="weeksInput" class="dayNumberField" type="text" />
-								weeks </td>
-								<td style="visibility: collapse">
-								<input id="monthsInput" class="dayNumberField" type="text" />
-								months </td>
-								<td style="height:0px; visibility: collapse">
-								<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
-								cellspacing="2">
-									<tbody>
-										<tr>
-											<td>
-											<p class="hiddenField">
-												<a href="#" id="updateStartDateButton" class="ui-state-default ui-corner-all"><span
-												class="ui-icon ui-icon-triangle-1-n"></span>Update Start date</a>
-											</p></td>
-										</tr>
-										<tr>
-											<td>
-											<p class="hiddenField">
-												<a href="#" id="updateEndDateButton" class="ui-state-default ui-corner-all">Update End
-												date<span class="ui-icon ui-icon-triangle-1-s"></span></a>
-											</p></td>
-										</tr>
-									</tbody>
-								</table></td>
-							</tr>
-						</tbody>
-					</table></td>
-				</tr>
-				<tr>
-					<td>
-					<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
-					cellspacing="2">
-						<tbody>
-							<tr>
-								<td align="center">
-								<table class="ui-accordion">
-									<tr>
-										<td>
-										<p align="right" class="hiddenField">
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-										</p>
-										<p align="right" class="hiddenField">
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-minusthick"></span>Remove column</a>
-										</p></td>
-										<td><div id="end_cal_holder_div"></td>
-									</tr>
-									<tr style="height:0px; visibility: collapse">
-										<td style="height:0px; visibility: collapse"></td>
-										<td style="height:0px; visibility: collapse">
-										<p class="hiddenField" >
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-											<a href="#" id="addRowStartCalendar"
-											class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick"> </span>Remove column</a>
-										</p></td>
-									</tr>
-								</table> </div> </td>
-								<td>
-								<p class="hiddenField">
-									<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
-								</p></td>
-							</tr>
-						</tbody>
-					</table></td>
-				</tr>
-				<tr align="center">
-					<td class="style1" align="left">
-					<input id="endDateIncludeCheckbox" type=checkbox title="Include into range calculations. E.g. it will be added to the number of days" checked value=""/>
-					<span class="calendarLabel">End:<span id="endDateLabel"> no date selected</span> </span></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-		<div id="dialog" title="Dialog Title">
-			<p id="startDateHistoryContent"></p>
-		</div>
-		<div id="About" class="aboutBox">
-			<p style="margin:2px">
-				Calendar Calculator
-			</p>
-			<p style="margin:2px">
-				version 0.1
-			</p>
-			<p style="margin:2px;">
-				14-Mar-2012
-			</p>
-		</div>
-		<div id="startDateAfterDialog">
-			Start date appears to be after end date. Some calculations will not be correct.
-			Would you like to switch dates?
-			If you choose no, between calculations will not be performed.
-		</div>
-		
-		<!-- ui-dialog -->
-		<!-- <div class="ui-overlay">
-		<div class="ui-widget-overlay"></div>
-		<div class="ui-widget-shadow ui-corner-all"
-		style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div>
-		</div>
-		<div
-		style="position: absolute; width: 280px; height: 130px; left: 50px; top: 30px; padding: 10px;"
-		class="ui-widget ui-widget-content ui-corner-all">
-		<div class="ui-dialog-content ui-widget-content"
-		style="background: none; border: 0;">
+<head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <title>Calendar calculator v0.1</title>
+    <link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+    <script src="js/jui/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript" src="js/DP_DateExtensions.js"></script>
+    <script src="calendar_calc_jquery.js"></script>
+    <style type="text/css">
+        /*demo page css*/body
+        {
+            font: 62.5% "Trebuchet MS" , sans-serif;
+            margin: 10px;
+        }
+        .demoHeaders
+        {
+            margin-top: 2em;
+        }
+        #dialog_link
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #dialog_link span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        #updateStartDateButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #updateStartDateButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #updateEndDateButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #updateEndDateButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #startDateHistorButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #startDateHistorButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        .jQuerifiedButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        .jQuerifiedButtonSpan
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #endDateHistoryButton
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #endDateHistoryButton span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        
+        #addRowStartCalendar
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+        #addRowStartCalendar span.ui-icon
+        {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+        ul#icons
+        {
+            margin: 0;
+            padding: 0;
+        }
+        ul#icons li
+        {
+            margin: 2px;
+            position: relative;
+            padding: 4px 0;
+            cursor: pointer;
+            float: left;
+            list-style: none;
+        }
+        ul#icons span.ui-icon
+        {
+            float: left;
+            margin: 0 4px;
+        }
+        .style1
+        {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .noBorder
+        {
+            border: 0px solid red;
+        }
+        
+        td
+        {
+            border: 0px solid blue;
+        }
+        .calendarLabel 
+        {
+            font: 1.5em Verdana;
+        }
+        .dayNumberField {
+        	width : 50px;
+        	text-align : center;
+        	background-color: #B2B2B2;
+        }
+        
+        .hiddenField {
+        	visibility:hidden;
+        }
+    </style>
+</head>
+<body>
+    <table class="noBorder" border="1" cellpadding="1" cellspacing="1" align="center">
+        <tbody class="noBorder">
+            <tr align="center">
+                <td class="style1 noBorder" align="left">
+                	<!-- Why is is the first checkbox is always not checked on the page.
+                		If this (before this) will be removed - startDateIncludeCheckbox will become unchecked for some reason.
+                		
+                		This was due to memory effect of the browser - that is only when page is reloaded 
+                		the check box save it's state from previous page.
+                		I have added checking those boxes in the initEverything and the issue is solved.
+                		
+                	--> 
+                	<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
+           
+                    <span class="calendarLabel">Start: 
+                    	<span id="startDateLabel"> no date selected</span>
+                    </span>
 
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-		elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud
-		exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat.</p>
-		</div>
-		</div> -->
-		<!--<span id="start_year_back" class="ui-icon ui-icon-circle-arrow-w"></span>-->
-	</body>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                        cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    <table class="ui-accordion">
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="right">
+                                                <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Add row</a> 
+                                                <a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                	<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick">
+                                                    </span>Remove row</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p align="right">
+                                                    <a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a></p>
+                                                <p align="right">
+                                                    <a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a></p>
+                                            </td>
+                                            <td>
+                                                <div id="start_cal_holder_div">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <td>
+                                        <p class="hiddenField">
+                                            <a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history">
+                                                <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
+                                            </a>
+                                        </p>
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        Between</h3>
+                                </td>
+                                <td align="left" valign="middle">
+                                    <div><input maxlength="6" id="calendarDaysInput" class="dayNumberField"  readonly  type="text" />
+                                    calendar days</div>
+                                    <div><input id="workDaysInput" class="dayNumberField" type="text" />
+                                    work days</div>
+                                </td>
+                                <td style="visibility: collapse">
+                                    <input id="weeksInput" class="dayNumberField" type="text" />
+                                    weeks
+                                </td>
+                                <td style="visibility: collapse">
+                                    <input id="monthsInput" class="dayNumberField" type="text" />
+                                    months
+                                </td>
+                                <td style="height:0px; visibility: collapse">
+                                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                                        cellspacing="2">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p class="hiddenField">
+                                                        <a href="#" id="updateStartDateButton" class="ui-state-default ui-corner-all"><span
+                                                            class="ui-icon ui-icon-triangle-1-n"></span>Update Start date</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p class="hiddenField">
+                                                        <a href="#" id="updateEndDateButton" class="ui-state-default ui-corner-all">Update End
+                                                            date<span class="ui-icon ui-icon-triangle-1-s"></span></a></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
+                        cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                <table class="ui-accordion">
+                                        <tr>
+                                            <td>
+                                                <p align="right" class="hiddenField">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-plusthick"></span>Add column</a></p>
+                                                <p align="right" class="hiddenField">
+                                                    <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                        <span class="ui-icon ui-icon-minusthick"></span>Remove column</a></p>
+                                            </td>
+                                            <td>
+                                                <div id="end_cal_holder_div">
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr style="height:0px; visibility: collapse">
+                                            <td style="height:0px; visibility: collapse"></td>
+                                            <td style="height:0px; visibility: collapse">
+                                            	<p class="hiddenField" >
+                                               <a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history">
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Add column</a> 
+                                               <a href="#" id="addRowStartCalendar"
+                                                        class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick">
+                                                        </span>Remove column</a>
+                                               </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    </div>
+                                </td>
+                                <td>
+                                	<p class="hiddenField">
+                                    <a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history">
+                                        <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span>
+                                    </a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="style1" align="left">
+                    <input id="endDateIncludeCheckbox" type=checkbox title="Include into range calculations. E.g. it will be added to the number of days" checked value=""/>
+                    <span class="calendarLabel">End:<span id="endDateLabel"> no date selected</span> </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <div id="dialog" title="Dialog Title">
+        <p id="startDateHistoryContent">
+        </p>
+    </div>
+    <div id="About" style="position:absolute; top:0; left:0; width:150px; text-align: center">
+    	<p style="margin:2px">Calendar Calculator</p>
+    	<p style="margin:2px"> version 0.1</p>
+    	<p style="margin:2px;">14-Mar-2012</p>
+    	 
+    </div>
+    <!-- ui-dialog -->
+    <!-- <div class="ui-overlay">
+										<div class="ui-widget-overlay"></div>
+										<div class="ui-widget-shadow ui-corner-all"
+											style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div>
+									</div>
+									<div
+										style="position: absolute; width: 280px; height: 130px; left: 50px; top: 30px; padding: 10px;"
+										class="ui-widget ui-widget-content ui-corner-all">
+										<div class="ui-dialog-content ui-widget-content"
+											style="background: none; border: 0;">
+
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit, sed do eiusmod tempor incididunt ut labore et dolore
+												magna aliqua. Ut enim ad minim veniam, quis nostrud
+												exercitation ullamco laboris nisi ut aliquip ex ea commodo
+												consequat.</p>
+										</div>
+									</div> -->
+    <!--<span id="start_year_back" class="ui-icon ui-icon-circle-arrow-w"></span>-->
+</body>
 </html>
