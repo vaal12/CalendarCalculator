@@ -8,6 +8,7 @@
 		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
 		<script type="text/javascript" src="js/DP_DateExtensions.js"></script>
+		<script src="js/init_everything.js"></script>
 		<script src="js/calendar_calc.js"></script>
 		<style type="text/css">
 		</style>
@@ -27,48 +28,25 @@
 						<tbody>
 							<tr>
 								<td align="center">
-								<table>
-									<!-- @formatter:off -->
-									<tr> <td></td>
-										<td align="right">
-											<button id="showStartCalendarExpansionControls" ></button>
-											<div id="startCalendarAddButtonsDiv">
-												<table width="100%">
-													<tr>
-														<td align="left">
-															<button id="addRowStartCalendar">Add row</button>
-															<button id="removeRowStartCalendar">Remove row</button>
-															
-															
-														</td>
-														<td align="right">
-															<button id="removeColStartCalendar">Remove column</button>
-															<button id="addColStartCalendar">Add column</button>
-														</td>
-													</tr>
-												</table>
-											<!--p align="right">
-											<a href="#" id="addColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> 
-												<span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add column</a>
-											</p>
-											<p align="right">
-											<a href="#" id="removeColStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all" title="Start date history"> 
-												<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick"></span>Remove column</a>
-											</p  -->	
-											<!--a href="#" id="addRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all"> 
-											<span class="jQuerifiedButtonSpan ui-icon ui-icon-plusthick"></span>Add row</a>
-											<a href="#" id="removeRowStartCalendar" class="jQuerifiedButton ui-state-default ui-corner-all"> 
-											<span class="jQuerifiedButtonSpan ui-icon ui-icon-minusthick">&nbsp;</span>Remove row</a-->
-											</div>
-										</td>
-									</tr>
-									<!-- @formatter:on -->
-									<tr>
-										<td>
-										</td>
-										<td><div id="start_cal_holder_div"></div></td>
-									</tr>
-								</table><td>
+<!-- @formatter:off -->			 <div>
+									<div id="startCalendarAddButtonsDiv">
+										<table width="100%">
+										 <tr>
+										  <td align="left">
+											<button id="addRowStartCalendar">Add row</button>
+											<button id="removeRowStartCalendar">Remove row</button>
+										  </td>
+										  <td align="right">
+											<button id="removeColStartCalendar">Remove column</button>
+											<button id="addColStartCalendar">Add column</button>
+										  </td>
+										 </tr>
+										</table> <!-- @formatter:on -->
+									</div>
+									<div id="start_cal_holder_div"></div>
+								</div>
+								</td>
+								<td valign="top" align="left"><button id="showStartCalendarExpansionControls" ></button>
 								<p class="hiddenField">
 									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
@@ -130,25 +108,13 @@
 								<td align="center">
 								<table class="ui-accordion">
 									<tr>
-										<td>
-										<p align="right" class="hiddenField">
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-										</p>
-										<p align="right" class="hiddenField">
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-minusthick"></span>Remove column</a>
-										</p></td>
-										<td><div id="end_cal_holder_div"></td>
+										<td><div id="end_cal_holder_div"></div></td>
 									</tr>
 									<tr style="height:0px; visibility: collapse">
 										<td style="height:0px; visibility: collapse"></td>
-										<td style="height:0px; visibility: collapse">
-										<p class="hiddenField" >
-											<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-											<a href="#" id="addRowStartCalendar"
-											class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick"> </span>Remove column</a>
-										</p></td>
+										<td style="height:0px; visibility: collapse"></td>
 									</tr>
-								</table> </div> </td>
+								</table></td>
 								<td>
 								<p class="hiddenField">
 									<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
@@ -184,6 +150,17 @@
 			Would you like to switch dates?
 			If you choose no, between calculations will not be performed.
 		</div>
+		<p align="right" class="hiddenField">
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
+		</p>
+		<p align="right" class="hiddenField">
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-minusthick"></span>Remove column</a>
+		</p>
+		<p class="hiddenField" >
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
+			<a href="#" id="addRowStartCalendar"
+			class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick"> </span>Remove column</a>
+		</p>
 		<!-- ui-dialog -->
 		<!-- <div class="ui-overlay">
 		<div class="ui-widget-overlay"></div>
