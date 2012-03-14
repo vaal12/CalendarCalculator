@@ -16,6 +16,7 @@ endCalendarNumberOfCols = 3;
 disableCalculations = false;
 
 startCalendarExpansionControlsShown = false;
+endCalendarExpansionControlsShown = false;
 
 
 $(document).ready(function(){
@@ -194,6 +195,21 @@ function hideShowStartCalendarExpansionControls(evt) {
 		startCalendarExpansionControlsShown = true;
 	}
 }
+
+function hideShowEndCalendarExpansionControls(){
+	if(endCalendarExpansionControlsShown) {
+		$( "#endCalendarAddButtonsDiv" ).hide( "blind", {}, 1000);
+		$("#showEndCalendarExpansionControls").button("option", "icons", 
+				{primary:'ui-icon-carat-1-n'} );
+		endCalendarExpansionControlsShown = false;
+	}
+	else {
+		$("#endCalendarAddButtonsDiv" ).show( "blind", {}, 1000);
+		$("#showEndCalendarExpansionControls").button("option", "icons", 
+				{primary:'ui-icon-carat-1-s'} );
+		endCalendarExpansionControlsShown = true;
+	}
+};
 	
 function onStartOrStopDateIncludeChange(eventData){
 	//console.log("Data changed");

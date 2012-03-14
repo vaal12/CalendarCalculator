@@ -48,14 +48,12 @@ function initEverything(){
 	
 	// Dialog Link
 	$('#dialog_link').click(function(eventObj){
-		//console.log("We have mouse click. X="+
-				//eventObj.clientX+
-				//"Y="+eventObj.clientY 	);
 		$('#dialog').dialog( "option", "position", [eventObj.clientX, eventObj.clientY-30] );
 		$('#dialog').dialog('open');
 		return false;
 	});
 	
+	//Start calendar expansion controls
 	$("#addRowStartCalendar").button({
             icons: {primary: "ui-icon-plusthick"},
  	});
@@ -68,21 +66,45 @@ function initEverything(){
  	$("#removeColStartCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
- 	
-	
-	$("#addRowStartCalendar").click(addStartCalendarRow);
+ 	$("#addRowStartCalendar").click(addStartCalendarRow);
 	$("#removeRowStartCalendar").click(removeStartCalendarRow);
-	
 	$("#addColStartCalendar").click(addStartCalCol);
 	$("#removeColStartCalendar").click(removeStartCalCol);
+ 	
+	//End calendar expansion controls
+	$("#addRowEndCalendar").button({
+            icons: {primary: "ui-icon-plusthick"},
+ 	});
+ 	$("#removeRowEndCalendar").button({
+            icons: {primary: "ui-icon-minusthick"},
+ 	});
+ 	$("#addColEndCalendar").button({
+            icons: {primary: "ui-icon-plusthick"},
+ 	});
+ 	$("#removeColEndCalendar").button({
+            icons: {primary: "ui-icon-minusthick"},
+ 	});
+ 	$("#addRowEndCalendar").click(addStartCalendarRow);
+	$("#removeRowEndCalendar").click(removeStartCalendarRow);
+	$("#addColEndCalendar").click(addStartCalCol);
+	$("#removeColEndCalendar").click(removeStartCalCol);
 	
+	//showStartCalendarExpansionControls
 	$("#showStartCalendarExpansionControls").button({
 		icons: {primary: "ui-icon-carat-1-n"},
 		text: false
 	});
 	$("#showStartCalendarExpansionControls").css('height','15px').css('width','15px').css('margin', '0px');
-
 	$("#showStartCalendarExpansionControls").click(hideShowStartCalendarExpansionControls);
+	
+	//showEndCalendarExpansionControls
+	$("#showEndCalendarExpansionControls").button({
+		icons: {primary: "ui-icon-carat-1-n"},
+		text: false
+	});
+	$("#showEndCalendarExpansionControls").css('height','15px').css('width','15px').css('margin', '0px');
+	$("#showEndCalendarExpansionControls").click(hideShowEndCalendarExpansionControls);
+	
 	//Good infom on jquery and checkboxes
 	//http://www.electrictoolbox.com/check-uncheck-checkbox-jquery/
 	$('#startDateIncludeCheckbox').attr('checked', true);
@@ -103,5 +125,7 @@ function initEverything(){
 	});//$("#startDateAfterDialog").dialog({
     
     $("#startCalendarAddButtonsDiv").hide();
+    $("#endCalendarAddButtonsDiv").hide();
+    
 	
 };//function initEverythin(){

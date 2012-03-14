@@ -41,12 +41,13 @@
 											<button id="addColStartCalendar">Add column</button>
 										  </td>
 										 </tr>
-										</table> <!-- @formatter:on -->
+										</table> 
 									</div>
 									<div id="start_cal_holder_div"></div>
-								</div>
+								</div><!-- @formatter:on -->
 								</td>
-								<td valign="top" align="left"><button id="showStartCalendarExpansionControls" ></button>
+								<td valign="top" align="left">
+									<button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
 								<p class="hiddenField">
 									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
@@ -106,16 +107,37 @@
 						<tbody>
 							<tr>
 								<td align="center">
-								<table class="ui-accordion">
-									<tr>
-										<td><div id="end_cal_holder_div"></div></td>
-									</tr>
-									<tr style="height:0px; visibility: collapse">
-										<td style="height:0px; visibility: collapse"></td>
-										<td style="height:0px; visibility: collapse"></td>
-									</tr>
-								</table></td>
-								<td>
+<!-- @formatter:off -->			 <div>
+									<div id="endCalendarAddButtonsDiv">
+										<table width="100%">
+										 <tr>
+										  <td align="left">
+											<button id="addRowEndCalendar">Add row</button>
+											<button id="removeRowEndCalendar">Remove row</button>
+										  </td>
+										  <td align="right">
+											<button id="removeColEndCalendar">Remove column</button>
+											<button id="addColEndCalendar">Add column</button>
+										  </td>
+										 </tr>
+										</table> 
+									</div>
+									<div id="end_cal_holder_div"></div>
+								</div><!-- @formatter:on -->
+								<!--p align="right" class="hiddenField">
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
+		</p>
+		<p align="right" class="hiddenField">
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-minusthick"></span>Remove column</a>
+		</p>
+		<p class="hiddenField" >
+			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
+			<a href="#" id="addRowStartCalendar"
+			class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick"> </span>Remove column</a>
+		</p-->
+								</td>
+								<td valign="top" align="left">
+								<button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button>	
 								<p class="hiddenField">
 									<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
@@ -150,17 +172,7 @@
 			Would you like to switch dates?
 			If you choose no, between calculations will not be performed.
 		</div>
-		<p align="right" class="hiddenField">
-			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-		</p>
-		<p align="right" class="hiddenField">
-			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-minusthick"></span>Remove column</a>
-		</p>
-		<p class="hiddenField" >
-			<a href="#" id="addRowStartCalendar" class="ui-state-default ui-corner-all" title="Start date history"> <span class="ui-icon ui-icon-plusthick"></span>Add column</a>
-			<a href="#" id="addRowStartCalendar"
-			class="ui-state-default ui-corner-all" title="Start date history"><span class="ui-icon ui-icon-minusthick"> </span>Remove column</a>
-		</p>
+		
 		<!-- ui-dialog -->
 		<!-- <div class="ui-overlay">
 		<div class="ui-widget-overlay"></div>
