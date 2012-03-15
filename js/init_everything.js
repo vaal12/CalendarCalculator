@@ -125,11 +125,13 @@ function initEverything(){
 	$("#calendarDaysForm").submit(calendarDaysSubmit);
 	$("#weeksForm").submit(calendarWeeksSubmit);
 	$("#monthsForm").submit(calendarMonthsSubmit);
+	$("#workDaysForm").submit(calendarWorkDaysSubmit);
 	
 	
 	
 	$("#calendarDaysInput").val("");
-	$("#dayNumberField").val("");
+	$("#workDaysInput").val("");
+	//$("#dayNumberField").val("");
 	$("#calendarHoursInput").val("");
 	$("#workHoursInput").val("");
 	$("#weeksInput").val("");

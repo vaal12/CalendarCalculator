@@ -90,7 +90,6 @@ function startDateSelected(dateStr, instance){
 	i=0;
 	while(i<startDatesHistory.length){
 		dateStr = startDatesHistory[i];
-		//console.log("Setting event for date:"+dateStr);
 		dateObj = new Date(dateStr);
 		idString = (dateObj.getMonth()+1)+"_"+dateObj.getDate()+"_"+dateObj.getFullYear();
 		$("#"+idString).click(onStartDateHistoryClick);
@@ -104,31 +103,21 @@ function endDateSelected(dateStr, instance){
 	endDateCurrent = dateObj;
 	$("#endDateLabel").text(dateObj.toLocaleDateString());
 	if((!checkStartDateIsBefore()) || disableCalculations) {
-		//console.log("disableCalculations"+disableCalculations);
 		return;
 	}
 	updateDateDifferences();
 };
 
 function isWorkDay(dateObj){
-	weekDay = dateObj.getDay();
+	var weekDay = dateObj.getDay();
 	if((weekDay>0) && (weekDay<6)) return true;
 	else return false;
 }
 
-function updateDateDifferences(){
-	if((startDateCurrent != -1) && (endDateCurrent != -1)){
-		startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
-		endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
-		//console.log(startDateChecked);
-		calendarDays = endDateCurrent.diff(startDateCurrent, "days");
-		if (startDateCurrent.getTime() == endDateCurrent.getTime()) calendarDays=1;
-		else {
-			if(endDateChecked) calendarDays+=1;
-			if(!startDateChecked) calendarDays-=1;
-		}
-		
-		workDays = endDateCurrent.diff(startDateCurrent, "businessdays");
+function getWorkDaysToDate(endDate) {
+	var startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+	var endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+	var workDays = endDate.diff(startDateCurrent, "businessdays");
 		/**
 		 *  This is odd, for some reason calendar days are calculated by diff as 
 		 * including the first day, while working days are calculated as strict number
@@ -138,13 +127,31 @@ function updateDateDifferences(){
 		 * if date 1-16Apr2012 and date2 - 18Apr2012 difference is 1
 		 * To check the library code for that. 
 		 */
-		if (startDateCurrent.getTime() == endDateCurrent.getTime()) workDays=1;
+	if ((startDateCurrent.getTime() == endDate.getTime()) 
+		&&
+		isWorkDay(startDateCurrent)) 
+		workDays=1;
+	else {
+		if(  (startDateChecked) 
+			&& 
+			 (isWorkDay(startDateCurrent))) { workDays +=1; }
+		if(endDateChecked && isWorkDay(endDate)) workDays+=1;
+	}//else if (startDateCurrent == endDateCurrent) workDays=0;
+	return workDays
+}
+
+function updateDateDifferences(){
+	if((startDateCurrent != -1) && (endDateCurrent != -1)){
+		var startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+		var endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+		calendarDays = endDateCurrent.diff(startDateCurrent, "days");
+		if (startDateCurrent.getTime() == endDateCurrent.getTime()) calendarDays=1;
 		else {
-			if(  (startDateChecked) 
-				&& 
-				 (isWorkDay(startDateCurrent))) { workDays +=1; }
-			if(endDateChecked && isWorkDay(endDateCurrent)) workDays+=1;
-		}//else if (startDateCurrent == endDateCurrent) workDays=0;
+			if(endDateChecked) calendarDays+=1;
+			if(!startDateChecked) calendarDays-=1;
+		}
+		
+		var workDays = getWorkDaysToDate(endDateCurrent);
 		
 		weeksDateInFuture = new Date(endDateCurrent);
 		if(startDateChecked && endDateChecked) { weeksDateInFuture.advance({day:1}); }
@@ -158,6 +165,9 @@ function updateDateDifferences(){
 		}
 		if(!startDateChecked && endDateChecked) monthsDateInFuture.advance({day:1});
 		months = monthsDateInFuture.diff(startDateCurrent, "months");
+		if(startDateCurrent.getTime() == endDateCurrent.getTime()) months =0;
+		
+		
 		$("#calendarDaysInput").val(calendarDays);
 		$("#workDaysInput").val(workDays);
 		$("#weeksInput").val(weeks);
@@ -203,19 +213,18 @@ function removeEndCalendarRow(){
 function hideShowStartCalendarExpansionControls(evt) {
 	//Test
 	
-	
+	/**
 	$('#testDialog').dialog("open");
  	$('#testDialog').click(function(event){
      event.stopPropagation();
  	});
  	timeoutID = window.setTimeout(function (){
  		$('html').click(function() {
-		//console.log("outside dialog click");
  		$("#testDialog").dialog("close");
  		});	
  	}, 200); 
  	
-
+	*/
 	//Test end
 	if(startCalendarExpansionControlsShown) {
 		$( "#startCalendarAddButtonsDiv" ).hide( "blind", {}, 1000);
@@ -248,7 +257,6 @@ function hideShowEndCalendarExpansionControls(){
 };
 	
 function onStartOrStopDateIncludeChange(eventData){
-	//console.log("Data changed");
 	updateDateDifferences();
 }
 
@@ -321,15 +329,12 @@ function setEndDateInAdvance(daysNum){
 }
 
 function calendarDaysSubmit(){
-	//console.log("We have form submitted"+
 	//	$("#calendarDaysInput").val());
 	value = $("#calendarDaysInput").val();
 
 	if(IsNumeric(value)) {
 		numVal = value-0;
 		setEndDateInAdvance(numVal);
-		//console.log("This is number:"+numVal);
-		
 	}
 	return false;
 }
@@ -346,15 +351,31 @@ function calendarWeeksSubmit() {
 
 function calendarMonthsSubmit(){
 	value = $("#monthsInput").val();
-	
 	if(IsNumeric(value)) {
 		numVal = value-0;
 		advancedDate = new Date(startDateCurrent);
 		advancedDate.advance({month:numVal});
-		console.log("Advanced date:"+advancedDate.toLocaleDateString());
 		diffDays = advancedDate.diff(startDateCurrent, "days");
-		console.log("Days difference:"+diffDays);
 		setEndDateInAdvance(diffDays);
 	};
+	return false;
 }
 
+function calendarWorkDaysSubmit(){
+	var value = $("#workDaysInput").val();
+	if(IsNumeric(value)) {
+		var numVal = value-0;
+		var advancedDate = new Date(startDateCurrent);
+		var numCalDays = 0;
+		while(getWorkDaysToDate(advancedDate)<numVal) {
+			advancedDate.advance({day:1});
+			numCalDays +=1;
+		}
+		var startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+		var endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+		if(startDateChecked && endDateChecked) numCalDays+=1;
+		if(!startDateChecked && !endDateChecked) numCalDays-=1;
+		setEndDateInAdvance(numCalDays);
+	}//if(IsNumeric(value)) {	
+	return false;
+}
