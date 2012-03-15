@@ -120,5 +120,18 @@ function initEverything(){
     $("#startCalendarAddButtonsDiv").hide();
     $("#endCalendarAddButtonsDiv").hide();
     
+	$("#calendarDaysForm").submit(calendarDaysSubmit);
+	
+	$("#calendarDaysInput").val("");
+	$("#dayNumberField").val("");
+	$("#calendarHoursInput").val("");
+	$("#workHoursInput").val("");
+	$("#weeksInput").val("");
+	$("#monthsInput").val("");
+	
+	
+	
+	
+	
 	
 };//function initEverythin(){

@@ -8,6 +8,7 @@
 		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
 		<script type="text/javascript" src="js/DP_DateExtensions.js"></script>
+		<script type="text/javascript" src="js/sugar-1.2.3.min.js"></script>
 		<script src="js/init_everything.js"></script>
 		<script src="js/calendar_calc.js"></script>
 		<style type="text/css">
@@ -57,20 +58,23 @@
 					<table class="ui-corner-all" style="padding: 0px 50px 0px 0px; text-align: left; border: 0px gray solid; " cellpadding="3" cellspacing="4">
 						<tbody>
 							<tr>
-								<td style="font-size: 2em;">Between</td>
+								<td class="calendarLabel">Between</td>
 								<td align="left" valign="top" class="border1PixGray">
 								<div style="text-align: center; font-size: 1.5em;" >
 									Days
 								</div>
 								<div style="float: left; text-align: center; margin: 3px;">
 									<div>
-										<input maxlength="6" id="calendarDaysInput" class="dayNumberField"  readonly  type="text" />
+										<form action="#" id="calendarDaysForm">
+										<input maxlength="6" id="calendarDaysInput" class="dayNumberFieldEnabled"  type="text" />
+										<!--input hidden type="submit" id="calendarDaysSubmit" /-->
+										</form>
 									</div>
 									calendar
 								</div>
 								<div style="float: right; text-align: center; margin: 3px;">
 									<div>
-										<input id="workDaysInput" class="dayNumberField" type="text" />
+										<input id="workDaysInput" class="dayNumberField" readonly type="text" />
 									</div>
 									work
 								</div>
@@ -82,13 +86,13 @@
 								<div align="center">
 								<div style="float: left; text-align: center; margin: 3px;">
 									<div>
-										<input maxlength="6" id="calendarHoursInput" class="dayNumberField"  readonly  type="text" />
+										<input maxlength="6" id="calendarHoursInput" readonly class="dayNumberField"  readonly  type="text" />
 									</div>
 									total
 								</div>
 								<div style="float: right; text-align: center;margin: 3px;">
 									<div>
-										<input id="workHoursInput" class="dayNumberField" type="text" />
+										<input id="workHoursInput" class="dayNumberField" readonly type="text" />
 									</div>
 									work
 								</div>
@@ -98,13 +102,13 @@
 									<div style="text-align: center;font-size: 1.5em;">
 									Weeks
 									</div>
-								<input id="weeksInput" class="dayNumberField" type="text" style="margin: 3px;"/>
+								<input id="weeksInput" class="dayNumberField" type="text" readonly style="margin: 3px;"/>
 								</td>
 								<td valign="top" align="center" class="border1PixGray">
 									<div style="text-align: center; font-size: 1.5em; ">
 									Months
 									</div>
-									<input id="monthsInput" class="dayNumberField" type="text" style="margin: 3px;"/>
+									<input id="monthsInput" class="dayNumberField" type="text" readonly style="margin: 3px;"/>
 								</td>
 								<!--td style="height:0px; visibility: collapse">
 								<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"

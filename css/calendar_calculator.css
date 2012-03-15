@@ -112,13 +112,20 @@ td {
 }
 
 .calendarLabel {
-    font: 1.5em Verdana;
+    font-size: 2em;
 }
 .dayNumberField {
     width: 50px;
     text-align: center;
     background-color: #B2B2B2;
 }
+
+.dayNumberFieldEnabled {
+    width: 50px;
+    text-align: center;
+    
+}
+
 .hiddenField {
     visibility: hidden;
 }
@@ -129,3 +136,5 @@ td {
     text-align: center; 
     z-index:-1;
 }
+
+

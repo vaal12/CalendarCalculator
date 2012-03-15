@@ -17,6 +17,9 @@ disableCalculations = false;
 startCalendarExpansionControlsShown = false;
 endCalendarExpansionControlsShown = false;
 
+MinCalendarDate = new Date("01/01/1970");
+MaxCalendarDate = new Date("12/31/2020");
+
 
 $(document).ready(function(){
 	//console.log("Hello //console");
@@ -247,6 +250,7 @@ function removeStartCalCol(){
 }//function removeStartCalCol(){
 
 
+
 	
 function addEndCalCol(){
 	endCalendarNumberOfCols +=1;
@@ -264,8 +268,47 @@ function removeEndCalCol(){
 	}
 }//function removeStartCalCol(){
 
+function IsNumeric(sText) {
+   var ValidChars = "0123456789";
+   var IsNumber=true;
+   var Char;
+   for (i = 0; i < sText.length && IsNumber == true; i++) { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) IsNumber = false;
+   }
+   return IsNumber;
+}//function IsNumeric(sText)
 
 
+function calendarDaysSubmit(){
+	console.log("We have form submitted"+
+		$("#calendarDaysInput").val());
+	value = $("#calendarDaysInput").val();
+
+	if(IsNumeric(value)) {
+		numVal = value-0;
+		console.log("This is number:"+numVal);
+		if(startDateCurrent != -1) {
+			startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+			endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+			if(!startDateChecked && !endDateChecked) numVal +=1;
+			if(endDateChecked && startDateChecked) numVal -=1;
+			console.log(numVal);
+			
+			advancedDate = new Date(startDateCurrent);
+			advancedDate.advance({day:numVal });
+			if(advancedDate.getTime() > MaxCalendarDate.getTime()) {
+				alert("Sorry the date is too far in the future");
+				return;
+			}
+				 
+				
+			$('#end_cal_holder_div').datepicker("setDate", advancedDate);
+			endDateSelected(advancedDate.toLocaleString());
+		}
+	}
+	
+}
 
 
 
