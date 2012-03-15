@@ -26,16 +26,9 @@ $(document).ready(function(){
 });//$(document).ready(function(){
 
 function onStartDateHistoryClick(eventObj) {
-	//console.log("Start history date clicked:"+eventObj.target);
-	//console.log("Start history date clicked:"+eventObj.currentTarget.id);
-	
 	dateStr = eventObj.currentTarget.id.replace("_", "/");
 	dateStr = dateStr.replace("_", "/");
-	//console.log("We have string:"+dateStr);
-	//dateObj = new Date(dateStr);
-	////console.log(dateObj.toLocaleString());
 	$('#start_cal_holder_div').datepicker("setDate", dateStr);
-	
 	$('#dialog').dialog('close');
 }
 
@@ -43,7 +36,6 @@ function checkStartDateIsBefore(){
 	if(startDateCurrent==-1 || endDateCurrent == -1) return true;
 	if(startDateCurrent.getTime()> endDateCurrent.getTime()) {
 		$("#startDateAfterDialog").dialog("open");
-		//console.log("After dialog creation");
 		disableCalculations = true;
 		return false;
 	}
@@ -54,11 +46,11 @@ function checkStartDateIsBefore(){
 }
 
 function switchDatesYesSelected() {
-	console.log("Yes selected");
+	//console.log("Yes selected");
 	$('#start_cal_holder_div').datepicker("setDate", endDateCurrent);
-	console.log("StartdateCurrent "+startDateCurrent.toLocaleString());
+	//console.log("StartdateCurrent "+startDateCurrent.toLocaleString());
 	$('#end_cal_holder_div').datepicker("setDate", startDateCurrent);
-	console.log("After setting new date");
+	//console.log("After setting new date");
 	$("#startDateAfterDialog").dialog("close");
 	startDateCurrent = new Date($('#start_cal_holder_div').datepicker("getDate"));
 	endDateCurrent = new Date($('#end_cal_holder_div').datepicker("getDate"));
@@ -68,7 +60,7 @@ function switchDatesYesSelected() {
 }
 
 function switchDatesNoSelected() {
-	console.log("No selected");
+	//console.log("No selected");
 	$("#startDateAfterDialog").dialog("close");
 	resetDateDifferences();
 	
@@ -81,21 +73,18 @@ function resetDateDifferences() {
 	$("#monthsInput").val("");
 }
 
-
-
 function startDateSelected(dateStr, instance){
-	console.log("startDateSelected:"+dateStr);
+	//console.log("startDateSelected:"+dateStr);
 	dateObj = new Date(dateStr);
 	startDateCurrent = dateObj;
 	$("#startDateLabel").text(dateObj.toLocaleDateString());
 	if(endDateCurrent!=-1) $("#endDateLabel").text(endDateCurrent.toLocaleDateString());
 	if((!checkStartDateIsBefore()) || disableCalculations) {
-		console.log("disableCalculations"+disableCalculations);
+		//console.log("disableCalculations"+disableCalculations);
 		return;
 	}
 	startDatesHistory.push(dateStr);
 	
-	//console.log("We have date object:"+dateObj.toLocaleString());
 	idString = (dateObj.getMonth()+1)+"_"+dateObj.getDate()+"_"+dateObj.getFullYear();
 	newLinkStr = "<a href='#' id='"+idString+"'>"+dateObj.toLocaleString()+"</a>";
 	$("#startDateHistoryContent").html(
@@ -118,7 +107,7 @@ function endDateSelected(dateStr, instance){
 	endDateCurrent = dateObj;
 	$("#endDateLabel").text(dateObj.toLocaleDateString());
 	if((!checkStartDateIsBefore()) || disableCalculations) {
-		console.log("disableCalculations"+disableCalculations);
+		//console.log("disableCalculations"+disableCalculations);
 		return;
 	}
 	updateDateDifferences();
@@ -166,6 +155,8 @@ function updateDateDifferences(){
 		$("#workDaysInput").val(workDays);
 		$("#weeksInput").val(weeks);
 		$("#monthsInput").val(months);
+		$("#calendarHoursInput").val(calendarDays*24);
+		$("#workHoursInput").val(workDays*8);
 	};
 }
 
@@ -195,7 +186,6 @@ function addEndCalendarRow(){
 function removeEndCalendarRow(){
 	if(endCalendarNumberOfRows>1){
 		endCalendarNumberOfRows -=1;
-		console.log("Number of rows:"+startCalendarNumberOfRows);
 		$('#end_cal_holder_div').datepicker("option",
 			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
 		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);

@@ -1,7 +1,7 @@
 /*demo page css*/
 body {
     font: 62.5% "Trebuchet MS", sans-serif;
-    margin: 10px;
+    margin: 20px 10px 10px 10px;
 }
 .demoHeaders {
     margin-top: 2em;
@@ -104,8 +104,13 @@ ul#icons span.ui-icon {
     border: 0px solid red;
 }
 td {
-    border: 1px solid blue;
+    border: 0px solid blue;
 }
+
+.border1PixGray{
+    border: 1px solid gray;
+}
+
 .calendarLabel {
     font: 1.5em Verdana;
 }

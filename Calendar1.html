@@ -27,8 +27,7 @@
 					cellspacing="2">
 						<tbody>
 							<tr>
-								<td align="center">
-<!-- @formatter:off -->			 <div>
+								<td align="center"><!-- @formatter:off -->			 <div>
 									<div id="startCalendarAddButtonsDiv">
 										<table width="100%">
 										 <tr>
@@ -44,10 +43,8 @@
 										</table> 
 									</div>
 									<div id="start_cal_holder_div"></div>
-								</div><!-- @formatter:on -->
-								</td>
-								<td valign="top" align="left">
-									<button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
+								</div><!-- @formatter:on --></td>
+								<td valign="top" align="left"><button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
 								<p class="hiddenField">
 									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
@@ -56,27 +53,60 @@
 					</table></td>
 				</tr>
 				<tr>
-					<td>
-					<table class="ui-corner-all" style="text-align: left; width: 100%; border: 1px red solid; " cellpadding="2" cellspacing="2">
+					<td align="center">
+					<table class="ui-corner-all" style="padding: 0px 50px 0px 0px; text-align: left; border: 0px gray solid; " cellpadding="3" cellspacing="4">
 						<tbody>
 							<tr>
-								<td><h3> Between</h3></td>
-								<td align="left" valign="middle">
-								<div>
-									<input maxlength="6" id="calendarDaysInput" class="dayNumberField"  readonly  type="text" />
-									calendar days
+								<td style="font-size: 2em;">Between</td>
+								<td align="left" valign="top" class="border1PixGray">
+								<div style="text-align: center; font-size: 1.5em;" >
+									Days
 								</div>
-								<div>
-									<input id="workDaysInput" class="dayNumberField" type="text" />
-									work days
-								</div></td>
-								<td style="visibility: collapse">
-								<input id="weeksInput" class="dayNumberField" type="text" />
-								weeks </td>
-								<td style="visibility: collapse">
-								<input id="monthsInput" class="dayNumberField" type="text" />
-								months </td>
-								<td style="height:0px; visibility: collapse">
+								<div style="float: left; text-align: center; margin: 3px;">
+									<div>
+										<input maxlength="6" id="calendarDaysInput" class="dayNumberField"  readonly  type="text" />
+									</div>
+									calendar
+								</div>
+								<div style="float: right; text-align: center; margin: 3px;">
+									<div>
+										<input id="workDaysInput" class="dayNumberField" type="text" />
+									</div>
+									work
+								</div>
+								</td>
+								<td align="left" valign="top" align="center" class="border1PixGray">
+								<div style="text-align: center;font-size: 1.5em;" >
+									Hours
+								</div>
+								<div align="center">
+								<div style="float: left; text-align: center; margin: 3px;">
+									<div>
+										<input maxlength="6" id="calendarHoursInput" class="dayNumberField"  readonly  type="text" />
+									</div>
+									total
+								</div>
+								<div style="float: right; text-align: center;margin: 3px;">
+									<div>
+										<input id="workHoursInput" class="dayNumberField" type="text" />
+									</div>
+									work
+								</div>
+								</div>
+								</td>
+								<td valign="top" align="center" class="border1PixGray">
+									<div style="text-align: center;font-size: 1.5em;">
+									Weeks
+									</div>
+								<input id="weeksInput" class="dayNumberField" type="text" style="margin: 3px;"/>
+								</td>
+								<td valign="top" align="center" class="border1PixGray">
+									<div style="text-align: center; font-size: 1.5em; ">
+									Months
+									</div>
+									<input id="monthsInput" class="dayNumberField" type="text" style="margin: 3px;"/>
+								</td>
+								<!--td style="height:0px; visibility: collapse">
 								<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
 								cellspacing="2">
 									<tbody>
@@ -95,7 +125,7 @@
 											</p></td>
 										</tr>
 									</tbody>
-								</table></td>
+								</table></td-->
 							</tr>
 						</tbody>
 					</table></td>
@@ -106,8 +136,7 @@
 					cellspacing="2">
 						<tbody>
 							<tr>
-								<td align="center">
-<!-- @formatter:off -->			 <div>
+								<td align="center"><!-- @formatter:off -->			 <div>
 									<div id="endCalendarAddButtonsDiv">
 										<table width="100%">
 										 <tr>
@@ -123,11 +152,8 @@
 										</table> 
 									</div>
 									<div id="end_cal_holder_div"></div>
-								</div><!-- @formatter:on -->
-								
-								</td>
-								<td valign="top" align="left">
-								<button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button>	
+								</div><!-- @formatter:on --></td>
+								<td valign="top" align="left"><button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button>
 								<p class="hiddenField">
 									<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
@@ -151,10 +177,10 @@
 				Calendar Calculator
 			</p>
 			<p style="margin:2px">
-				version 0.1
+				version 0.2
 			</p>
 			<p style="margin:2px;">
-				14-Mar-2012
+				15-Mar-2012
 			</p>
 		</div>
 		<div id="startDateAfterDialog">
@@ -162,7 +188,6 @@
 			Would you like to switch dates?
 			If you choose no, between calculations will not be performed.
 		</div>
-		
 		<!-- ui-dialog -->
 		<!-- <div class="ui-overlay">
 		<div class="ui-widget-overlay"></div>
