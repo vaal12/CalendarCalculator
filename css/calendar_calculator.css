@@ -137,4 +137,4 @@ td {
     z-index:-1;
 }
 
-
+.no-close .ui-dialog-titlebar-close {display: none }

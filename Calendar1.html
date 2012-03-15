@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-		<title>Calendar calculator v0.1</title>
+		<title>Calendar calculator</title>
 		<link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
 		<link type="text/css" href="css/calendar_calculator.css" rel="stylesheet" />
 		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
@@ -192,6 +192,26 @@
 			Would you like to switch dates?
 			If you choose no, between calculations will not be performed.
 		</div>
+		<div id="testDialog">A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.
+
+If the content length exceeds the maximum height, a scrollbar will automatically appear.
+
+A bottom button bar and semi-transparent modal overlay layer are common options that can be added.
+
+A call to $(foo).dialog() will initialize a dialog instance and will auto-open the dialog by default. If you want to reuse a dialog, the easiest way is to disable the "auto-open" option with: $(foo).dialog({ autoOpen: false }) and open it with $(foo).dialog('open'). To close it, use $(foo).dialog('close'). A more in-depth explanation with a full demo is available on the Nemikor blog.
+    timeoutID is the numerical ID of the timeout, which can be used later with window.clearTimeout.
+    func is the function you want to execute after delay milliseconds.
+    code in the alternate syntax, is a string of code you want to execute after delay milliseconds. (Using this syntax is not recommended for the same reasons as using eval())
+    delay is the number of milliseconds (thousandths of a second) that the function call should be delayed by. The actual delay may be longer, see Notes below.
+
+Note that passing additional parameters to the function in the first syntax does not work in Internet Explorer.
+Note: Prior to Gecko 13 (Firefox 13.0 / Thunderbird 13.0) , Gecko passed an extra parameter to the callback routine, indicating the "actual lateness" of the timeout in milliseconds. This non-standard parameter is no longer passed.
+Compatibility
+
+Introduced with JavaScript 1.0, Netscape 2.0. Passing a Function object reference was introduced with JavaScript 1.2, Netscape 4.0; supported by the MSHTML DOM since version 5.0.
+Examples
+		</div>
+		
 		<!-- ui-dialog -->
 		<!-- <div class="ui-overlay">
 		<div class="ui-widget-overlay"></div>

@@ -77,6 +77,8 @@ function resetDateDifferences() {
 }
 
 function startDateSelected(dateStr, instance){
+	
+	
 	//console.log("startDateSelected:"+dateStr);
 	dateObj = new Date(dateStr);
 	startDateCurrent = dateObj;
@@ -197,6 +199,30 @@ function removeEndCalendarRow(){
 
 	
 function hideShowStartCalendarExpansionControls(evt) {
+	//Test
+	$("#testDialog").dialog({
+		modal: true,
+		width : 400,
+		height : 400,
+		dialogClass: 'no-close',
+		close: function(event, ui) {
+			$('html').unbind();
+		}
+	});
+	
+
+ 	$('#testDialog').click(function(event){
+     event.stopPropagation();
+ 	});
+ 	timeoutID = window.setTimeout(function (){
+ 		$('html').click(function() {
+		console.log("outside dialog click");
+ 		$("#testDialog").dialog("close");
+ 		});	
+ 	}, 200); 
+ 	
+
+	//Test end
 	if(startCalendarExpansionControlsShown) {
 		$( "#startCalendarAddButtonsDiv" ).hide( "blind", {}, 1000);
 		$("#showStartCalendarExpansionControls").button("option", "icons", 
