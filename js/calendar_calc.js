@@ -22,10 +22,7 @@ MaxCalendarDate = new Date("12/31/2020");
 
 
 $(document).ready(function(){
-	//console.log("Hello //console");
-	//$("#start_cal_holder_div").text("Hello I am calendar");
 	initEverything();
-	
 });//$(document).ready(function(){
 
 function onStartDateHistoryClick(eventObj) {
@@ -49,11 +46,10 @@ function checkStartDateIsBefore(){
 }
 
 function switchDatesYesSelected() {
-	//console.log("Yes selected");
 	$('#start_cal_holder_div').datepicker("setDate", endDateCurrent);
-	//console.log("StartdateCurrent "+startDateCurrent.toLocaleString());
+	
 	$('#end_cal_holder_div').datepicker("setDate", startDateCurrent);
-	//console.log("After setting new date");
+	
 	$("#startDateAfterDialog").dialog("close");
 	startDateCurrent = new Date($('#start_cal_holder_div').datepicker("getDate"));
 	endDateCurrent = new Date($('#end_cal_holder_div').datepicker("getDate"));
@@ -63,7 +59,7 @@ function switchDatesYesSelected() {
 }
 
 function switchDatesNoSelected() {
-	//console.log("No selected");
+	
 	$("#startDateAfterDialog").dialog("close");
 	resetDateDifferences();
 	
@@ -77,15 +73,11 @@ function resetDateDifferences() {
 }
 
 function startDateSelected(dateStr, instance){
-	
-	
-	//console.log("startDateSelected:"+dateStr);
 	dateObj = new Date(dateStr);
 	startDateCurrent = dateObj;
 	$("#startDateLabel").text(dateObj.toLocaleDateString());
 	if(endDateCurrent!=-1) $("#endDateLabel").text(endDateCurrent.toLocaleDateString());
 	if((!checkStartDateIsBefore()) || disableCalculations) {
-		//console.log("disableCalculations"+disableCalculations);
 		return;
 	}
 	startDatesHistory.push(dateStr);
@@ -154,7 +146,13 @@ function updateDateDifferences(){
 			if(endDateChecked && isWorkDay(endDateCurrent)) workDays+=1;
 		}//else if (startDateCurrent == endDateCurrent) workDays=0;
 		
-		weeks = endDateCurrent.diff(startDateCurrent, "weeks");
+		weeksDateInFuture = new Date(endDateCurrent);
+		if(startDateChecked && endDateChecked) {
+			weeksDateInFuture.advance({day:1});
+			console.log("weeksDateInFuture:"+weeksDateInFuture.toLocaleDateString());
+		}
+		weeks = weeksDateInFuture.diff(startDateCurrent, "weeks");
+		
 		months = endDateCurrent.diff(startDateCurrent, "months");
 		$("#calendarDaysInput").val(calendarDays);
 		$("#workDaysInput").val(workDays);
@@ -200,23 +198,15 @@ function removeEndCalendarRow(){
 	
 function hideShowStartCalendarExpansionControls(evt) {
 	//Test
-	$("#testDialog").dialog({
-		modal: true,
-		width : 400,
-		height : 400,
-		dialogClass: 'no-close',
-		close: function(event, ui) {
-			$('html').unbind();
-		}
-	});
 	
-
+	
+	$('#testDialog').dialog("open");
  	$('#testDialog').click(function(event){
      event.stopPropagation();
  	});
  	timeoutID = window.setTimeout(function (){
  		$('html').click(function() {
-		console.log("outside dialog click");
+		//console.log("outside dialog click");
  		$("#testDialog").dialog("close");
  		});	
  	}, 200); 
@@ -306,35 +296,52 @@ function IsNumeric(sText) {
 }//function IsNumeric(sText)
 
 
+function setEndDateInAdvance(daysNum){
+	if(startDateCurrent != -1) {
+		startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
+		endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
+		if(!startDateChecked && !endDateChecked) daysNum +=1;
+		if(endDateChecked && startDateChecked) daysNum -=1;
+		
+			
+		advancedDate = new Date(startDateCurrent);
+		advancedDate.advance({day:daysNum });
+		if(advancedDate.getTime() > MaxCalendarDate.getTime()) {
+			alert("Sorry the date is too far in the future");
+			return;
+		}
+			 
+		$('#end_cal_holder_div').datepicker("setDate", advancedDate);
+		endDateSelected(advancedDate.toLocaleString());
+	}//if(startDateCurrent != -1) {
+}
+
 function calendarDaysSubmit(){
-	console.log("We have form submitted"+
-		$("#calendarDaysInput").val());
+	//console.log("We have form submitted"+
+	//	$("#calendarDaysInput").val());
 	value = $("#calendarDaysInput").val();
 
 	if(IsNumeric(value)) {
 		numVal = value-0;
-		console.log("This is number:"+numVal);
-		if(startDateCurrent != -1) {
-			startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
-			endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
-			if(!startDateChecked && !endDateChecked) numVal +=1;
-			if(endDateChecked && startDateChecked) numVal -=1;
-			console.log(numVal);
-			
-			advancedDate = new Date(startDateCurrent);
-			advancedDate.advance({day:numVal });
-			if(advancedDate.getTime() > MaxCalendarDate.getTime()) {
-				alert("Sorry the date is too far in the future");
-				return;
-			}
-				 
-				
-			$('#end_cal_holder_div').datepicker("setDate", advancedDate);
-			endDateSelected(advancedDate.toLocaleString());
-		}
+		setEndDateInAdvance(numVal);
+		//console.log("This is number:"+numVal);
+		
 	}
-	
+	return false;
 }
+
+function calendarWeeksSubmit() {
+	
+	value = $("#weeksInput").val();
+	console.log("Calendar weeks submitted value:"+value);
+	if(IsNumeric(value)) {
+		numVal = value-0;
+		daysInWeeks = numVal*7;
+		setEndDateInAdvance(daysInWeeks);
+	}//if(IsNumeric(value)) {
+	return false;
+}
+
 
 
 

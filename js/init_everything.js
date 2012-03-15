@@ -9,6 +9,7 @@ function initEverything(){
 		changeMonth : true,
 		yearRange: '1971:2020',
 		//showButtonPanel: true,
+		firstDay: 1,
 		showWeek : true,
 		onSelect: startDateSelected
 	});//$('#start_cal_holder_div').datepicker({
@@ -21,6 +22,7 @@ function initEverything(){
 		changeMonth : true,
 		yearRange: '1971:2020',
 		//showButtonPanel: true,
+		firstDay: 1,
 		showWeek : true,
 		onSelect: endDateSelected
 	});//$('#end_cal_holder_div').datepicker({
@@ -121,6 +123,8 @@ function initEverything(){
     $("#endCalendarAddButtonsDiv").hide();
     
 	$("#calendarDaysForm").submit(calendarDaysSubmit);
+	$("#weeksForm").submit(calendarWeeksSubmit);
+	
 	
 	$("#calendarDaysInput").val("");
 	$("#dayNumberField").val("");
@@ -129,7 +133,16 @@ function initEverything(){
 	$("#weeksInput").val("");
 	$("#monthsInput").val("");
 	
-	
+	$("#testDialog").dialog({
+		autoOpen : false,
+		modal: true,
+		width : 400,
+		height : 400,
+		dialogClass: 'no-close',
+		close: function(event, ui) {
+			$('html').unbind();
+		}
+	});
 	
 	
 	
