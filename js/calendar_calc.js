@@ -147,13 +147,17 @@ function updateDateDifferences(){
 		}//else if (startDateCurrent == endDateCurrent) workDays=0;
 		
 		weeksDateInFuture = new Date(endDateCurrent);
-		if(startDateChecked && endDateChecked) {
-			weeksDateInFuture.advance({day:1});
-			console.log("weeksDateInFuture:"+weeksDateInFuture.toLocaleDateString());
-		}
+		if(startDateChecked && endDateChecked) { weeksDateInFuture.advance({day:1}); }
+		if(!startDateChecked && !endDateChecked) { weeksDateInFuture.rewind({day:1}); }
+		
 		weeks = weeksDateInFuture.diff(startDateCurrent, "weeks");
 		
-		months = endDateCurrent.diff(startDateCurrent, "months");
+		monthsDateInFuture = new Date(endDateCurrent);
+		if(startDateChecked && endDateChecked) {
+			monthsDateInFuture.advance({day:2});
+		}
+		if(!startDateChecked && endDateChecked) monthsDateInFuture.advance({day:1});
+		months = monthsDateInFuture.diff(startDateCurrent, "months");
 		$("#calendarDaysInput").val(calendarDays);
 		$("#workDaysInput").val(workDays);
 		$("#weeksInput").val(weeks);
@@ -331,9 +335,7 @@ function calendarDaysSubmit(){
 }
 
 function calendarWeeksSubmit() {
-	
 	value = $("#weeksInput").val();
-	console.log("Calendar weeks submitted value:"+value);
 	if(IsNumeric(value)) {
 		numVal = value-0;
 		daysInWeeks = numVal*7;
@@ -342,9 +344,17 @@ function calendarWeeksSubmit() {
 	return false;
 }
 
-
-
-
-
-
+function calendarMonthsSubmit(){
+	value = $("#monthsInput").val();
+	
+	if(IsNumeric(value)) {
+		numVal = value-0;
+		advancedDate = new Date(startDateCurrent);
+		advancedDate.advance({month:numVal});
+		console.log("Advanced date:"+advancedDate.toLocaleDateString());
+		diffDays = advancedDate.diff(startDateCurrent, "days");
+		console.log("Days difference:"+diffDays);
+		setEndDateInAdvance(diffDays);
+	};
+}
 

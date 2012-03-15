@@ -124,6 +124,8 @@ function initEverything(){
     
 	$("#calendarDaysForm").submit(calendarDaysSubmit);
 	$("#weeksForm").submit(calendarWeeksSubmit);
+	$("#monthsForm").submit(calendarMonthsSubmit);
+	
 	
 	
 	$("#calendarDaysInput").val("");
