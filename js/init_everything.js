@@ -1,7 +1,14 @@
+SUPPOSED_SINGLE_CALENDAR_WIDTH = 200;
+
 function initEverything(){
 	//console.log("initEverything starts");
 	//$("#start_cal_holder_div").hide();
 	// Datepicker
+	
+	//alert("Window width="+$(window).width()+"  height:"+$(window).height());
+	startCalendarNumberOfCols = Math.floor($(window).width()/SUPPOSED_SINGLE_CALENDAR_WIDTH);
+	if(startCalendarNumberOfCols<1) startCalendarNumberOfCols=1;
+	
 	$('#start_cal_holder_div').datepicker({
 		inline: true,
 		numberOfMonths: [startCalendarNumberOfRows, startCalendarNumberOfCols],
