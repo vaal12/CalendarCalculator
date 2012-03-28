@@ -26,8 +26,8 @@ $(document).ready(function(){
 });//$(document).ready(function(){
 
 function onStartDateHistoryClick(eventObj) {
-	dateStr = eventObj.currentTarget.id.replace("_", "/");
-	dateStr = dateStr.replace("_", "/");
+	dateStr = eventObj.currentTarget.id.replace("_", "default.htm");
+	dateStr = dateStr.replace("_", "default.htm");
 	$('#start_cal_holder_div').datepicker("setDate", dateStr);
 	$('#dialog').dialog('close');
 }
@@ -314,7 +314,6 @@ function setEndDateInAdvance(daysNum){
 		endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
 		if(!startDateChecked && !endDateChecked) daysNum +=1;
 		if(endDateChecked && startDateChecked) daysNum -=1;
-		
 			
 		advancedDate = new Date(startDateCurrent);
 		advancedDate.advance({day:daysNum });
@@ -324,7 +323,8 @@ function setEndDateInAdvance(daysNum){
 		}
 			 
 		$('#end_cal_holder_div').datepicker("setDate", advancedDate);
-		endDateSelected(advancedDate.toLocaleString());
+		//endDateSelected(advancedDate.toLocaleString());
+		endDateSelected(advancedDate);
 	}//if(startDateCurrent != -1) {
 }
 
