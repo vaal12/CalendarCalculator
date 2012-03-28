@@ -27,11 +27,8 @@
 				</tr>
 				<tr>
 					<td>
-					<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
-					cellspacing="2">
-						<tbody>
-							<tr>
-								<td align="center"><!-- @formatter:off -->			 <div>
+					<!-- @formatter:off -->			 <div>
+									<div id="start_cal_holder_div"></div>
 									<div id="startCalendarAddButtonsDiv">
 										<table width="100%">
 										 <tr>
@@ -44,20 +41,16 @@
 										 </tr>
 										</table> 
 									</div>
-									<div id="start_cal_holder_div"></div>
-								</div><!-- @formatter:on --></td>
-								<td valign="top" align="left">
-									<button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
-									<p class="hiddenField">
+									
+								</div><!-- @formatter:on -->
+								<!--p class="hiddenField">
 									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
-								</p></td>
-							</tr>
-						</tbody>
-					</table></td>
+								</p-->
+					</td>
 				</tr>
 				<tr>
-					<td align="center">
-					<table class="ui-corner-all" style="padding: 0px 50px 0px 0px; text-align: left; border: 0px gray solid; " cellpadding="3" cellspacing="4">
+					<td align="right">
+					<table class="ui-corner-all" style="padding: 0px 15px 0px 0px; text-align: left; border: 0px gray solid; " cellpadding="3" cellspacing="4">
 						<tbody>
 							<tr>
 								<td class="calendarLabel">Between</td>
@@ -118,6 +111,16 @@
 									<input id="monthsInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
 									</form>
 								</td>
+								<td class="noBorder" valign="center" align="center" class="border1PixGray">
+									<table height="70" cellpadding="2px" cellspacing="0">
+										<tr>
+											<td valign="top" align="right"><button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button></td>
+										</tr>
+										<tr>
+											<td valign="bottom" align="right"><button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button></td>
+										</tr>
+									</table>
+								</td>
 								<!--td style="height:0px; visibility: collapse">
 								<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
 								cellspacing="2">
@@ -144,11 +147,8 @@
 				</tr>
 				<tr>
 					<td align="center">
-					<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
-					cellspacing="2">
-						<tbody>
-							<tr>
-								<td align="center"><!-- @formatter:off -->			 <div>
+					<!-- @formatter:off -->			 <div>
+									
 									<div id="endCalendarAddButtonsDiv">
 										<table width="100%">
 										 <tr>
@@ -162,14 +162,11 @@
 										</table> 
 									</div>
 									<div id="end_cal_holder_div"></div>
-								</div><!-- @formatter:on --></td>
-								<td valign="top" align="left"><button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button>
-								<p class="hiddenField">
+								</div><!-- @formatter:on -->
+								<!--p class="hiddenField">
 									<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
-								</p></td>
-							</tr>
-						</tbody>
-					</table></td>
+								</p-->
+					</td>
 				</tr>
 				<tr align="center">
 					<td class="style1" align="left">
