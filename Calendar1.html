@@ -20,25 +20,32 @@
 				<tr align="center" style="background-color: white; ">
 					<th class="noBorder" rowspan="5"><img id="removeColumnImage" src="img/rem_col.png"></th>
 					<td class="style1 noBorder" align="left">
-					<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
-					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span></td>
-					<th class="noBorder" rowspan="5"><img id="addColumnImage" src="img/add_col.png"></th>
-				</tr>
-				<tr>
-					<td><!-- @formatter:off -->			 
-						<div id="startCalendarAddButtonsDiv">
-							<table width="100%">
+					
+					
+					<table width="100%">
 								<tr>
 									<td align="left">
+										<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
+					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span>
+									</td>
+									<td align="right">
 									<button id="removeRowStartCalendar">
 										Remove row
-									</button></td>
-									<td align="right">
+									</button>
 									<button id="addRowStartCalendar">
 										Add row
 									</button></td>
 								</tr>
 							</table>
+					
+					
+					</td>
+					<th class="noBorder" rowspan="5"><img id="addColumnImage" src="img/add_col.png"></th>
+				</tr>
+				<tr>
+					<td><!-- @formatter:off -->			 
+						<div id="startCalendarAddButtonsDiv">
+							
 						</div>
 						<div id="start_cal_holder_div"></div>
 					<!-- @formatter:on --><!--p
@@ -58,9 +65,7 @@
 									<tr>
 										<td class="calendarLabel">Between</td>
 										<td align="left" valign="top" class="border1PixGray">
-										<div style="text-align: center; font-size: 1.5em;">
-											Days
-										</div>
+										
 										<div style="float: left; text-align: center; margin: 3px;">
 											<div>
 												<form action="#" id="calendarDaysForm">
@@ -69,6 +74,9 @@
 												</form>
 											</div>
 											calendar
+										</div>
+										<div style="float: left; text-align: center; font-size: 1.5em;">
+											Days
 										</div>
 										<div style="float: right; text-align: center; margin: 3px;">
 											<div>
@@ -79,9 +87,7 @@
 											work
 										</div></td>
 										<td align="left" valign="top" align="center" class="border1PixGray">
-										<div style="text-align: center;font-size: 1.5em;" >
-											Hours
-										</div>
+										
 										<div align="center">
 											<div style="float: left; text-align: center; margin: 3px;">
 												<div>
@@ -89,6 +95,9 @@
 												</div>
 												total
 											</div>
+											<div style="float: left; text-align: center;font-size: 1.5em;" >
+											Hours
+										</div>
 											<div style="float: right; text-align: center;margin: 3px;">
 												<div>
 													<input id="workHoursInput" class="dayNumberField" readonly type="text" />
@@ -97,19 +106,23 @@
 											</div>
 										</div></td>
 										<td valign="top" align="center" class="border1PixGray">
-										<div style="text-align: center;font-size: 1.5em;">
+											<form action="#" id="weeksForm">
+											<input id="weeksInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
+										</form>
+										<div style="text-align: center;">
 											Weeks
 										</div>
-										<form action="#" id="weeksForm">
-											<input id="weeksInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
-										</form></td>
+										
+										</td>
 										<td valign="top" align="center" class="border1PixGray">
-										<div style="text-align: center; font-size: 1.5em; ">
-											Months
-										</div>
+										
 										<form action="#" id="monthsForm">
 											<input id="monthsInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
-										</form></td>
+										</form>
+										<div style="text-align: center; ">
+											Months
+										</div>
+										</td>
 										<td class="noBorder" valign="center" align="center" class="border1PixGray"></td>
 										<!--td style="height:0px; visibility: collapse">
 										<table class="noBorder" style="text-align: left; width: 100%;" border="1"
@@ -137,15 +150,23 @@
 									</tr>
 								</tbody>
 							</table></td>
-							<td align="right">
-							<table height="70" cellpadding="2px" cellspacing="0">
+							<td align="right" valign="bottom">
+								
+									<button id="removeRowEndCalendar">
+										Remove row
+									</button>
+									
+									<button id="addRowEndCalendar">
+										Add row
+									</button>
+							<!--table height="70" cellpadding="2px" cellspacing="0">
 								<tr>
 									<td valign="top" align="right"><button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button></td>
 								</tr>
 								<tr>
 									<td valign="bottom" align="right"><button id="showEndCalendarExpansionControls" title="Show/Hide expansion controls for end date calendar"></button></td>
 								</tr>
-							</table>
+							</table-->
 							</td>
 						</tr>
 					</table></td>
@@ -154,18 +175,7 @@
 					<td align="center"><!-- @formatter:off -->			 
 						<div>
 						<div id="endCalendarAddButtonsDiv">
-							<table width="100%">
-								<tr>
-									<td align="left">
-									<button id="removeRowEndCalendar">
-										Remove row
-									</button></td>
-									<td align="right">
-									<button id="addRowEndCalendar">
-										Add row
-									</button></td>
-								</tr>
-							</table>
+							
 						</div>
 						<div id="end_cal_holder_div"></div>
 					</div><!-- @formatter:on --><!--p class="hiddenField">
@@ -186,15 +196,7 @@
 			<p id="startDateHistoryContent"></p>
 		</div>
 		<div id="About" class="aboutBox">
-			<p style="margin:2px">
 				Calendar Calculator
-			</p>
-			<p style="margin:2px">
-				version 0.3
-			</p>
-			<p style="margin:2px;">
-				29-Mar-2012
-			</p>
 		</div>
 		<div id="startDateAfterDialog">
 			Start date appears to be after end date. Some calculations will not be correct.
@@ -243,6 +245,6 @@
 		</div>
 		</div> -->
 		<!--<span id="start_year_back" class="ui-icon ui-icon-circle-arrow-w"></span>-->
-		<div style="font-size: 0.75em; float: right"><a href="CalendarCalculator29Mar2012.zip">Offline version</a></div>
+		<div style="font-size: 0.75em; float: right">version 0.3.2 [30-Mar-2012] | <a href="CalendarCalculator29Mar2012.zip">Offline version</a></div>
 	</body>
 </html>
