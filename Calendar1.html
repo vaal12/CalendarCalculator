@@ -18,9 +18,12 @@
 		<table class="noBorder" border="1" cellpadding="1" cellspacing="1" align="center" style="background-color: white; ">
 			<tbody class="noBorder">
 				<tr align="center" style="background-color: white; ">
+					<th class="noBorder" rowspan="5"><img src="img/rem_col.png"></th>
 					<td class="style1 noBorder" align="left">
 					<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
-					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span></td>
+					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span>
+					</td>
+					<th class="noBorder" rowspan="5"><img src="img/add_col.png"></th>
 				</tr>
 				<tr>
 					<td>
@@ -33,20 +36,19 @@
 										<table width="100%">
 										 <tr>
 										  <td align="left">
-											<button id="addRowStartCalendar">Add row</button>
 											<button id="removeRowStartCalendar">Remove row</button>
 										  </td>
 										  <td align="right">
-											<button id="removeColStartCalendar" style="width: 140px">Remove column</button>
-											<button id="addColStartCalendar" style="width: 140px">Add column</button>
+											<button id="addRowStartCalendar">Add row</button>
 										  </td>
 										 </tr>
 										</table> 
 									</div>
 									<div id="start_cal_holder_div"></div>
 								</div><!-- @formatter:on --></td>
-								<td valign="top" align="left"><button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
-								<p class="hiddenField">
+								<td valign="top" align="left">
+									<button id="showStartCalendarExpansionControls" title="Show/Hide expansion controls for START date calendar"></button>
+									<p class="hiddenField">
 									<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date history"> <span class="ui-state-default ui-icon ui-icon-clock ui-corner-all">history </span> </a>
 								</p></td>
 							</tr>
@@ -141,7 +143,7 @@
 					</table></td>
 				</tr>
 				<tr>
-					<td>
+					<td align="center">
 					<table class="noBorder" style="text-align: left; width: 100%;" border="1" cellpadding="2"
 					cellspacing="2">
 						<tbody>
@@ -151,12 +153,10 @@
 										<table width="100%">
 										 <tr>
 										  <td align="left">
-											<button id="addRowEndCalendar">Add row</button>
 											<button id="removeRowEndCalendar">Remove row</button>
 										  </td>
 										  <td align="right">
-											<button id="removeColEndCalendar">Remove column</button>
-											<button id="addColEndCalendar">Add column</button>
+											<button id="addRowEndCalendar">Add row</button>
 										  </td>
 										 </tr>
 										</table> 
