@@ -10,7 +10,7 @@ startCalendarNumberOfRows = 1;
 startCalendarNumberOfCols = 3;
 
 endCalendarNumberOfRows = 1;
-endCalendarNumberOfCols = 3;
+//endCalendarNumberOfCols = 3;
 
 disableCalculations = false;
 
@@ -190,13 +190,15 @@ function removeStartCalendarRow(){
 		$('#start_cal_holder_div').datepicker("option",
 			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+		
+		
 	}
 };//function removeStartCalendarRow(){
 	
 function addEndCalendarRow(){
 	endCalendarNumberOfRows +=1;
 	$('#end_cal_holder_div').datepicker("option",
-		"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+		"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
 	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 };
 
@@ -204,7 +206,7 @@ function removeEndCalendarRow(){
 	if(endCalendarNumberOfRows>1){
 		endCalendarNumberOfRows -=1;
 		$('#end_cal_holder_div').datepicker("option",
-			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
+			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
 		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 	}
 };//function removeEndCalendarRow(){
@@ -229,13 +231,13 @@ function hideShowStartCalendarExpansionControls(evt) {
 	if(startCalendarExpansionControlsShown) {
 		$( "#startCalendarAddButtonsDiv" ).hide( "blind", {}, 1000);
 		$("#showStartCalendarExpansionControls").button("option", "icons", 
-				{primary:'ui-icon-carat-1-n'} );
+				{primary:'ui-icon-carat-1-s'} );
 		startCalendarExpansionControlsShown = false;
 	}
 	else {
 		$("#startCalendarAddButtonsDiv" ).show( "blind", {}, 1000);
 		$("#showStartCalendarExpansionControls").button("option", "icons", 
-				{primary:'ui-icon-carat-1-s'} );
+				{primary:'ui-icon-carat-1-n'} );
 		
 		startCalendarExpansionControlsShown = true;
 	}
@@ -266,6 +268,10 @@ function addStartCalCol(){
 	$('#start_cal_holder_div').datepicker("option",
 			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+	
+	$('#end_cal_holder_div').datepicker("option",
+			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
+	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 }//function addStartCalCol(){
 
 function removeStartCalCol(){
@@ -274,27 +280,19 @@ function removeStartCalCol(){
 		$('#start_cal_holder_div').datepicker("option",
 			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
 		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
+		
+		$('#end_cal_holder_div').datepicker("option",
+			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
+		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 	}
 }//function removeStartCalCol(){
 
 
 
 	
-function addEndCalCol(){
-	endCalendarNumberOfCols +=1;
-	$('#end_cal_holder_div').datepicker("option",
-			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
-	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
-}//function addStartCalCol(){
 
-function removeEndCalCol(){
-	if(endCalendarNumberOfCols>1){
-		endCalendarNumberOfCols -=1;
-		$('#end_cal_holder_div').datepicker("option",
-			"numberOfMonths", [endCalendarNumberOfRows, endCalendarNumberOfCols]);
-		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
-	}
-}//function removeStartCalCol(){
+
+
 
 function IsNumeric(sText) {
    var ValidChars = "0123456789";

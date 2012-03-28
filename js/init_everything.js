@@ -17,7 +17,7 @@ function initEverything(){
 	
 	$('#end_cal_holder_div').datepicker({
 		inline: true,
-		numberOfMonths: [endCalendarNumberOfRows, endCalendarNumberOfCols],
+		numberOfMonths: [endCalendarNumberOfRows, startCalendarNumberOfCols],
 		changeYear : true,
 		changeMonth : true,
 		yearRange: '1971:2020',
@@ -55,16 +55,19 @@ function initEverything(){
  	$("#removeRowStartCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
+ 	$("#addRowStartCalendar").click(addStartCalendarRow);
+	$("#removeRowStartCalendar").click(removeStartCalendarRow);
+ 	/**
  	$("#addColStartCalendar").button({
             icons: {primary: "ui-icon-plusthick"},
  	});
  	$("#removeColStartCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
- 	$("#addRowStartCalendar").click(addStartCalendarRow);
-	$("#removeRowStartCalendar").click(removeStartCalendarRow);
+ 	
 	$("#addColStartCalendar").click(addStartCalCol);
 	$("#removeColStartCalendar").click(removeStartCalCol);
+	*/
  	
 	//End calendar expansion controls
 	$("#addRowEndCalendar").button({
@@ -73,20 +76,26 @@ function initEverything(){
  	$("#removeRowEndCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
+ 	$("#addRowEndCalendar").click(addEndCalendarRow);
+	$("#removeRowEndCalendar").click(removeEndCalendarRow);
+	/**
  	$("#addColEndCalendar").button({
             icons: {primary: "ui-icon-plusthick"},
  	});
  	$("#removeColEndCalendar").button({
             icons: {primary: "ui-icon-minusthick"},
  	});
- 	$("#addRowEndCalendar").click(addEndCalendarRow);
-	$("#removeRowEndCalendar").click(removeEndCalendarRow);
+ 	
 	$("#addColEndCalendar").click(addEndCalCol);
 	$("#removeColEndCalendar").click(removeEndCalCol);
+	*/
+	
+	$("#removeColumnImage").click(removeStartCalCol);
+	$("#addColumnImage").click(addStartCalCol);
 	
 	//showStartCalendarExpansionControls
 	$("#showStartCalendarExpansionControls").button({
-		icons: {primary: "ui-icon-carat-1-n"},
+		icons: {primary: "ui-icon-carat-1-s"},
 		text: false
 	});
 	$("#showStartCalendarExpansionControls").css('height','15px').css('width','15px').css('margin', '0px');

@@ -18,16 +18,16 @@
 		<table class="noBorder" border="1" cellpadding="1" cellspacing="1" align="center" style="background-color: white; ">
 			<tbody class="noBorder">
 				<tr align="center" style="background-color: white; ">
-					<th class="noBorder" rowspan="5"><img src="img/rem_col.png"></th>
+					<th class="noBorder" rowspan="5"><img id="removeColumnImage" src="img/rem_col.png"></th>
 					<td class="style1 noBorder" align="left">
 					<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
 					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span></td>
-					<th class="noBorder" rowspan="5"><img src="img/add_col.png"></th>
+					<th class="noBorder" rowspan="5"><img id="addColumnImage" src="img/add_col.png"></th>
 				</tr>
 				<tr>
 					<td><!-- @formatter:off -->			 
-						<div>
-						<div id="start_cal_holder_div"></div>
+						
+						
 						<div id="startCalendarAddButtonsDiv">
 							<table width="100%">
 								<tr>
@@ -42,7 +42,8 @@
 								</tr>
 							</table>
 						</div>
-					</div><!-- @formatter:on -->
+						<div id="start_cal_holder_div"></div>
+					<!-- @formatter:on -->
 					<!--p class="hiddenField">
 					<a href="#" id="startDateHistorButton" class="ui-corner-all" title="Start date
 					history"> <span class="ui-state-default ui-icon ui-icon-clock
@@ -57,7 +58,7 @@
 							<tr>
 								<td class="calendarLabel">Between</td>
 								<td align="left" valign="top" class="border1PixGray">
-								<div style="text-align: center; font-size: 1.5em;" >
+								<div style="text-align: center; font-size: 1.5em;">
 									Days
 								</div>
 								<div style="float: left; text-align: center; margin: 3px;">
