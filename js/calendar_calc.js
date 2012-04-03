@@ -280,6 +280,8 @@ function removeStartCalCol(){
 			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
 		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
 	}
+	console.log("Cols"+startCalendarNumberOfCols);
+	console.log("rows"+startCalendarNumberOfRows);
 }//function removeStartCalCol(){
 
 
