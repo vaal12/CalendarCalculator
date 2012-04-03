@@ -6,6 +6,13 @@ function initEverything(){
 	// Datepicker
 	
 	//alert("Window width="+$(window).width()+"  height:"+$(window).height());
+	var k = $(window).width();
+	if($(window).width()==0) {
+		//alert("Win is 0");
+		var winWidth = setTimeout("initEverything()", 500);
+		return;
+		//alert("New width:"+winWidth);
+	};
 	startCalendarNumberOfCols = Math.floor($(window).width()/SUPPOSED_SINGLE_CALENDAR_WIDTH);
 	if(startCalendarNumberOfCols<1) startCalendarNumberOfCols=1;
 	
