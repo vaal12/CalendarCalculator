@@ -30,6 +30,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 /* "Date" Object Extensions */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+
+	// Set the Multiplication factors for unambigiuos times (MS times, used by various internal functions)
+Date.Factors = new Object();
+Date.Factors.milliseconds = 1;	// 1 ms to the ms (1 * 1000)
+Date.Factors.seconds = 1000;		// 1000 ms to the second (1 * 1000)
+Date.Factors.minutes = 60000;	// 60 seconds to the minute (1 * 1000 * 60)
+Date.Factors.quarterhours = 900000;	// 15 minutes to the quarter hour (1 * 1000 * 60 * 15)
+Date.Factors.warhols = 900000;	// 15 minutes of fame (1 * 1000 * 60 * 15)
+Date.Factors.halfhours = 1800000;	// 30 minutes to the half hour (1 * 1000 * 60 * 15)
+Date.Factors.hours = 3600000;	// 60 minutes to the hour (1 * 1000 * 60 * 60)
+Date.Factors.days = 86400000;	// 24 hours to the day (1 * 1000 * 60 * 60 * 24)
+Date.Factors.weeks = 604800000;	// 7 days per week (1 * 1000 * 60 * 60 * 24 * 7)
+
 	// is
 	// Checks if an object is a Date object
 Date.is = function(Ob) {
@@ -384,9 +397,43 @@ Date.parseIso8601 = function(CurDate) {
 
 };
 
+        // getUSDST 
+        // Accepts a full (four digit) year and returns an array with two date objects containing the beginning and end of DST in the US.
+        // Only functions for years post 1987 and assumes 2007 rules for later years.  Returns "null" for unknown or out of range values.
+Date.getUSDST = function(CurYear) {
+
+		// Check input parameters
+	if ( typeof CurYear != "number" || CurYear == "" ) {
+		return null;
+	};
+
+                // Return an empty array if out-of-range 
+        if ( CurYear < 1987 ) { return null }; 
+
+                // Determine the last possible (extreme range) dates. 
+        if ( CurYear < 2007 ) { 
+                var exOn = 38; 
+                var exOff = 31; 
+        } else { 
+                var exOn = 14; 
+                var exOff = 38; 
+        }; 
+                // Create the dates (first pass) 
+        var DSTOn = new Date(CurYear, 2, exOn, 2); 
+        var DSTOff = new Date(CurYear, 9, exOff, 2); 
+                // Set date to previous Sunday 
+        DSTOn.setDate(DSTOn.getDate() - DSTOn.getDay()); 
+        DSTOff.setDate(DSTOff.getDate() - DSTOff.getDay()); 
+        
+                // Return the Array 
+        return [DSTOn, DSTOff] 
+
+}; 
+
+
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/* "Date" Object Prototype Extensions */
+/* "Date" Object Prototype Extensions - Decision functions */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// isWeekday
@@ -417,6 +464,33 @@ Date.prototype.isLeapYear = function() {
 	};
 
 };
+
+
+        // isDST 
+        // Returns "true" if the date appears to fall within the local area's Daylight Saving Time (or similar scheme), returns false if the date does not (or it appears that the region doesn't observe DST).
+Date.prototype.isDST = function() { 
+
+                // Get the DST times 
+        var CurYear = this.getFullYear(); 
+        var DSTTimes = Date.getUSDST(CurYear); 
+
+                // Return null if out of range 
+        if ( DSTTimes[0] == null ) { return null }; 
+
+                // Determine if non-null dates are in-range and return 
+        if ( this > DSTTimes[0] && this < DSTTimes[1] ) { 
+                return true; 
+        } else { 
+                return false; 
+        }; 
+
+};
+
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* "Date" Object Prototype Extensions - Formatting functions */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// dateFormat
 	// Formats the date portion of a date object for display
@@ -722,6 +796,11 @@ Date.prototype.httpTimeFormat = function(isUTC) {
 };
 
 
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* "Date" Object Prototype Extensions - Convience functions */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 	// dayOfYear
 	// Returns the day of the year
 Date.prototype.dayOfYear = function() {
@@ -740,133 +819,327 @@ Date.prototype.weekOfYear = function() {
 
 };
 
+
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* "Date" Object Prototype Extensions - Math functions */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+	// round
+	// Rounds a date to the closest specified date part.
+Date.prototype.round = function(DatePart, Destructive) {
+
+		// Manage Input Params
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "seconds" };
+	if ( typeof Destructive != "boolean" ) { Destructive = false };
+
+		// Set a working/temp date
+	var ReturnDate = new Date(this);
+	var Ef;
+
+		// Set non-significant values to baseline
+	switch (DatePart) {
+		case "years":
+				// Mid-year is July Second
+			var MidYear = new Date(this.getFullYear(), 6, 2, 12);
+				// Do the rounding
+			if ( this.round("days").getTime() < MidYear.getTime() ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "months":
+				// Get the Mid-point of the month
+			var TempDate = new Date(this);
+			TempDate.setDate(32);
+			TempDate.setDate(0);
+			var MidPoint = Math.round(TempDate.getDate() / 2);
+				// Do the rounding
+			if ( this.round("days").getDate() < MidPoint ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "weeks":
+			if ( this.round("Days").getDay() < 4 )  { Ef = "F" } else { Ef = "C" };
+			break;
+		case "days":
+		case "businessdays":
+			if ( this.getDay() == 6 ) { Ef = "F" } else if ( this.getDay() == 0 ) { Ef = "C" } else if ( this.getHours() < 12 ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "hours":
+			if ( this.getMinutes() < 30 ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "halfhours":
+			var M = this.round("Minutes").getMinutes();
+			if ( M<15 || (M>29 && M<45) ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "quarterhours":
+		case "warhols":
+			var M = this.round("Minutes").getMinutes();
+			if ( M<8 || (M>14 && M<23) || (M>29 && M<38) || (M>44 && M<53) ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "minutes":
+			if ( this.getSeconds() < 30 ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "seconds":
+			if ( this.getMilliseconds() < 500 ) { Ef = "F" } else { Ef = "C" };
+			break;
+		case "milliseconds":
+			break;
+	};
+	
+		// Call floor/ceil to finish the job
+	if ( Ef == "F" ) {
+		ReturnDate = this.floor(DatePart);
+	} else if ( Ef == "C") {
+		ReturnDate = this.ceil(DatePart);
+	};
+
+		// Return
+	if ( !Destructive ) {
+		return ReturnDate;
+	} else {
+		this.setTime(ReturnDate.getTime());
+		return this;
+	};
+
+};
+
+	// ceil
+	// Rounds a date upwards to the closest specified date part.
+Date.prototype.ceil = function(DatePart, Destructive) {
+
+		// Manage Input Params
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "seconds" };
+	if ( typeof Destructive != "boolean" ) { Destructive = false };
+
+		// Set a working/temp date
+	var ReturnDate;
+
+		// Set non-significant values to baseline
+	switch (DatePart) {
+		case "years":
+			ReturnDate = new Date( this.getFullYear() + 1, 0, 1);
+			break;
+		case "months":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth() + 1, 1 );
+			break;
+		case "weeks":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() );
+			ReturnDate = ReturnDate.add(7 - this.getDay(), "days");
+			break;
+		case "days":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() + 1 );
+			break;
+		case "businessdays":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() + 1 );
+				// If the result is a business day, keep it, otherwise shift it.
+			if ( ReturnDate.getDay() == 0 ) {
+				ReturnDate = ReturnDate.add(1, "days");
+			} else if ( ReturnDate.getDay() == 6 ) {
+				ReturnDate = ReturnDate.add(2, "days");
+			};
+			break;
+		case "hours":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() + 1 );
+			break;
+		case "halfhours":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() );
+			if ( this.getMinutes() < 30 ) {
+				ReturnDate.setMinutes(30);
+			} else {
+				ReturnDate.setMinutes(60);
+			};
+			break;
+		case "quarterhours":
+		case "warhols":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() );
+			if ( this.getMinutes() < 15 ) {
+				ReturnDate.setMinutes(15);
+			} else if ( this.getMinutes() < 30 ) {
+				ReturnDate.setMinutes(30);
+			} else if ( this.getMinutes() < 45 ) {
+				ReturnDate.setMinutes(45);
+			} else {
+				ReturnDate.setMinutes(60);
+			};
+			break;
+		case "minutes":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes() + 1 );
+			break;
+		case "seconds":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds() + 1 );
+			break;
+		case "milliseconds":
+			ReturnDate = new Date( this );
+			break;
+	};
+
+		// Return
+	if ( !Destructive ) {
+		return ReturnDate;
+	} else {
+		this.setTime(ReturnDate.getTime());
+		return this;
+	};
+
+};
+
+	// floor
+	// Rounds a date downward to the closest specified date part.
+Date.prototype.floor = function(DatePart, Destructive) {
+
+		// Manage Input Params
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "seconds" };
+	if ( typeof Destructive != "boolean" ) { Destructive = false };
+
+		// Set a working/temp date
+	var ReturnDate;
+
+		// Set non-significant values to baseline
+	switch (DatePart) {
+		case "years":
+			ReturnDate = new Date( this.getFullYear(), 0, 1 );
+			break;
+		case "months":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), 1 );
+			break;
+		case "weeks":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() );
+			ReturnDate = ReturnDate.add(-this.getDay(), "days");
+			break;
+		case "days":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() );
+			break;
+		case "businessdays":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate() );
+				// If the result is a business day, keep it, otherwise shift it.
+			if ( ReturnDate.getDay() == 0 ) {
+				ReturnDate = ReturnDate.add(-2, "days");
+			} else if ( ReturnDate.getDay() == 6 ) {
+				ReturnDate = ReturnDate.add(-1, "days");
+			};
+			break;
+		case "hours":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() );
+			break;
+		case "halfhours":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() );
+			if ( this.getMinutes() < 30 ) {
+				ReturnDate.setMinutes(0);
+			} else {
+				ReturnDate.setMinutes(30);
+			};
+			break;
+		case "quarterhours":
+		case "warhols":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours() );
+			if ( this.getMinutes() < 15 ) {
+				ReturnDate.setMinutes(0);
+			} else if ( this.getMinutes() < 30 ) {
+				ReturnDate.setMinutes(15);
+			} else if ( this.getMinutes() < 45 ) {
+				ReturnDate.setMinutes(30);
+			} else {
+				ReturnDate.setMinutes(45);
+			};
+			break;
+		case "minutes":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes() );
+			break;
+		case "seconds":
+			ReturnDate = new Date( this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds() );
+			break;
+		case "milliseconds":
+			ReturnDate = new Date( this );
+			break;
+	};
+
+		// Return
+	if ( !Destructive ) {
+		return ReturnDate;
+	} else {
+		this.setTime(ReturnDate.getTime());
+		return this;
+	};
+
+};
+
+	// compare
+	// Compares two dates (optionally using a specific datepart precision)
+Date.prototype.compare = function(CompareDate, DatePart) {
+
+		// Manage Input Params
+	if ( !Date.is(CompareDate) ) { CompareDate = new Date() };
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "milliseconds" };
+
+		// Set working/temp vars
+	var Date1 = new Date(this);
+	var Date2 = new Date(CompareDate);
+	var Result;
+
+		// Set the precision by equalizing higher precision elements
+	Date1.floor(DatePart);
+	Date2.floor(DatePart);
+
+		// Do the comparison
+	if ( Date1.getTime() == Date2.getTime() ) {
+		Result = 0;
+	} else if ( Date1.getTime() < Date2.getTime() ) {
+		Result = -1;
+	} else {
+		Result = 1;
+	};
+
+		// Return the result
+	return Result;
+
+};
+
 	// add
 	// Adds a specified number of a specified date unit to a date
 Date.prototype.add = function(Amount, DatePart, Destructive) {
 
-	DatePart = DatePart.toLowerCase();
+		// Manage Input Params
+	if ( typeof Amount == "number" ) { Math.abs(Amount) } else { Amount = 1 };
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "milliseconds" };
 
 	var ReturnDate = new Date(this);
-	var CurAbsAmount = Math.abs(Amount);
-
 
 		// Can't add zero date parts
 	if ( Amount != 0 ) {
 	
-			// Set the Multiplication factors for unambigiuos times (MS times these will result in the appropriate data part)
-		var Factors = new Object();
-		Factors.milliseconds = 1;	// 1 ms to the ms (1 * 1000)
-		Factors.seconds = 1000;		// 1000 ms to the second (1 * 1000)
-		Factors.minutes = 60000;	// 60 seconds to the minute (1 * 1000 * 60)
-		Factors.quarterhours = 900000;	// 15 minutes to the quarter hour (1 * 1000 * 60 * 15)
-		Factors.warhols = 900000;	// 15 minutes of fame (1 * 1000 * 60 * 15)
-		Factors.halfhours = 1800000;	// 30 minutes to the half hour (1 * 1000 * 60 * 15)
-		Factors.hours = 3600000;	// 60 minutes to the hour (1 * 1000 * 60 * 60)
-		Factors.days = 86400000;	// 24 hours to the day (1 * 1000 * 60 * 60 * 24)
-		Factors.weeks = 604800000;	// 7 days per week (1 * 1000 * 60 * 60 * 24 * 7)
-
 			// Do the math
 		switch (DatePart) {
 				// The following are all unambigously convertable to ms equivalents
 			case "milliseconds":
+				ReturnDate.setMilliseconds(ReturnDate.getMilliseconds() + Amount);
+				break;
 			case "seconds":
+				ReturnDate.setSeconds(ReturnDate.getSeconds() + Amount);
+				break;
 			case "minutes":
+				ReturnDate.setMinutes(ReturnDate.getMinutes() + Amount);
+				break;
 			case "quarterhours":
 			case "warhols":
+				ReturnDate.setMinutes(ReturnDate.getSeconds() + (Amount*15));
+				break;
 			case "halfhours":
+				ReturnDate.setMinutes(ReturnDate.getSeconds() + (Amount*30));
+				break;
 			case "hours":
+				ReturnDate.setHours(ReturnDate.getHours() + Amount);
+				break;
 			case "days":
+				ReturnDate.setDate(ReturnDate.getDate() + Amount);
+				break;
 			case "weeks":
-				ReturnDate = new Date( this.getTime() + (Amount * Factors[DatePart]) );
+				ReturnDate.setDate(ReturnDate.getDate() + (Amount*7));
 				break;
 			case "businessdays":
-				if ( CurAbsAmount > 5 ) {
-					var CurWeeks = Math.floor(CurAbsAmount / 5);
-					var CurDays = CurAbsAmount % 5;
-					if ( Amount < 0 ) {
-						CurWeeks = -CurWeeks;
-						CurDays = -CurDays;
-					};
-				} else {
-					var CurWeeks = 0;
-					var CurDays = Amount;
-				};
-					// Add the number of weeks to the date
-				ReturnDate = ReturnDate.add(CurWeeks, "weeks");
-					// Now add the days
-				ReturnDate = ReturnDate.add(CurDays, "days");
-					// If we've landed on a weekend push us
-				if ( ReturnDate.getDay() == 0  ) {
-					if ( Amount < 0 ) {
-						ReturnDate = ReturnDate.add(-2, "days");
-					} else {
-						ReturnDate = ReturnDate.add(1, "days");
-					};
-				};
-				if ( ReturnDate.getDay() == 6  ) {
-					if ( Amount < 0 ) {
-						ReturnDate = ReturnDate.add(-1, "days");
-					} else {
-						ReturnDate = ReturnDate.add(2, "days");
-					};
-				};
-		    break;
-			case "businessweeks":
-				ReturnDate = ReturnDate.add(Amount * 5, "businessdays");
-				break;
-			case "wholeweeks":
-					// Move to the nearest Sunday
-				if ( Amount < 0 ) {
-					ReturnDate = ReturnDate.add(-(ReturnDate.getDay()), "days");
-				} else {
-					ReturnDate = ReturnDate.add(ReturnDate.getDay() + (6 - ReturnDate.getDay()), "days");
-				};
-					// Now add the weeks
-				ReturnDate = ReturnDate.add(Amount, "weeks");
-				break;
+				ReturnDate.setDate(ReturnDate.getDate() + Amount);
+		    		break;
 			case "months":
-					// Months are tricky - they have different number of days
-					// First split the amount into the number of years and months
-				if ( CurAbsAmount > 11 ) {
-					var CurYears = Math.floor(CurAbsAmount / 12);
-					var CurMonths = CurAbsAmount % 12;
-					if ( Amount < 0 ) {
-						CurYears = -CurYears;
-						CurMonths = -CurMonths;
-					};
-				} else {
-					var CurYears = 0;
-					var CurMonths = Amount;
-				};
-					// Add the number of years to the date
-				ReturnDate = ReturnDate.add(CurYears, "years");
-					// Now add the months
-				var TempReturnDate = new Date(ReturnDate);
-				TempReturnDate.setDate(1);
-				TempReturnDate = new Date( new Date(TempReturnDate).setMonth(TempReturnDate.getMonth() + CurMonths) );
-				ReturnDate = new Date( new Date(ReturnDate).setMonth(ReturnDate.getMonth() + CurMonths) );
-					// Determine if the months got thrown off (due to too many days in the current month compared to the target)
-				if ( ReturnDate.getMonth() != TempReturnDate.getMonth() ) {
-						// Set the date to the last day of the previous month
-					ReturnDate.setDate(0)
-				};
-
+				ReturnDate.setMonth(ReturnDate.getMonth() + Amount);
 				break;
 			case "years":
-					// February 29th may cause problems
-				var Feb29 = false;
-				if ( ReturnDate.getMonth() == 1 && ReturnDate.getDate() == 29 ) {
-					Feb29 = true;
-				};
-
-					// Add Years directly as a date part
-				ReturnDate = new Date( new Date(this).setFullYear(this.getFullYear() + Amount) );
-					// If Feb29th then check to ensure that the date hasn't changed the month
-				if ( Feb29 ) {
-					if ( ReturnDate.getMonth != 1 ) {
-						ReturnDate.setDate(0);
-					};
-				};
+				ReturnDate.setFullYear(ReturnDate.getFullYear() + Amount);
 				break;
 		};
 	};
@@ -884,36 +1157,67 @@ Date.prototype.add = function(Amount, DatePart, Destructive) {
 
 	// diff
 	// Returns the difference between two dates.
-Date.prototype.diff = function(CompareDate, DatePart) {
+Date.prototype.diff = function(CompareDate, DatePart, CompareMethod, NormalizeDST) {
 
-	DatePart = DatePart.toLowerCase();
+		// Manage input params and defaults
+	if ( !Date.is(CompareDate) ) { CompareDate = new Date() };
+	if ( typeof DatePart == "string" ) { DatePart = DatePart.toLowerCase() } else { DatePart = "milliseconds" };
+	if ( typeof CompareMethod == "string" ) { CompareMethod = CompareMethod.toLowerCase() } else { CompareMethod = "actual" };
+	if ( typeof NormalizeDST != "boolean" ) { NormalizeDST = true };
 
-	var Diff;
+		// Declare variables
+	var Diff, BaseDiff, Date1, Date2, Date1TZO, Date2TZO;
+
 		// Set the dates in order, Date1 previous
 	if ( this.getTime() <= CompareDate.getTime() ) {
-		var Date1 = new Date(this);
-		var Date2 = new Date(CompareDate);
+		Date1 = new Date(this);
+		Date2 = new Date(CompareDate);
 	} else {
-		var Date1 = new Date(CompareDate);
-		var Date2 = new Date(this);
+		Date1 = new Date(CompareDate);
+		Date2 = new Date(this);
 	};
 
-		// Set the Multiplication factors for unambigiuos times (MS times, these will result in the appropriate data part)
-	var Factors = new Object();
-	Factors.milliseconds = 1;	// 1 ms to the ms (1 * 1000)
-	Factors.seconds = 1000;		// 1000 ms to the second (1 * 1000)
-	Factors.minutes = 60000;	// 60 seconds to the minute (1 * 1000 * 60)
-	Factors.quarterhours = 900000;	// 15 minutes to the quarter hour (1 * 1000 * 60 * 15)
-	Factors.warhols = 900000;	// 15 minutes of fame (1 * 1000 * 60 * 15)
-	Factors.halfhours = 1800000;	// 30 minutes to the half hour (1 * 1000 * 60 * 15)
-	Factors.hours = 3600000;	// 60 minutes to the hour (1 * 1000 * 60 * 60)
-	Factors.days = 86400000;	// 24 hours to the day (1 * 1000 * 60 * 60 * 24)
-	Factors.weeks = 604800000;	// 7 days per week (1 * 1000 * 60 * 60 * 24 * 7)
+		// Attempt to normalize DST
+	if ( NormalizeDST ) {
+		Date1TZO = Date1.getTimezoneOffset();
+		Date2TZO = Date2.getTimezoneOffset();
+
+		if ( Date1TZO > Date2TZO ) {
+			Date2 = Date2.add(Date1TZO - Date2TZO, "Minutes");
+		} else
+		if ( Date1.getTimezoneOffset() < Date2.getTimezoneOffset() ) {
+			Date1 = Date1.add(Date2TZO - Date1TZO, "Minutes");
+		};
+	};
+
+		// Set the Base Different (in ms)
+	BaseDiff = (Date1.getTime() - Date2.getTime());
+
+		// Prepare the two dates
+	if ( CompareMethod == "logical" ) {
+		Date1.floor(DatePart, true);
+		Date2.floor(DatePart, true);
+			// Add to address dates on the instant of change
+		Date2.add(1, "Milliseconds", true);
+	};
+	if ( CompareMethod == "complete" ) {
+			// Add to address dates on the instant of change
+		Date1.add(-1, "Milliseconds", true);
+			// Move to the next full date part
+		Date1.ceil(DatePart, true);
+	};
 
 		// Do the math
+		//
+		// For simple date parts:
+		// "actual" is the difference between ms divided by the appropriate factors.
+		// "logical" zeros out the non-significant date parts and does a Diff on the result. 
+		// "complete" moves Date1 to the ms before the beginning of the next period, zeros out non-significant date parts, moves Date1 to the beginning of the next period and does a Diff on the result
 	switch (DatePart) {
-			// The following are all unambigously convertable to ms equivalents
+
 		case "milliseconds":
+			Diff = BaseDiff;
+			break;
 		case "seconds":
 		case "minutes":
 		case "quarterhours":
@@ -922,159 +1226,51 @@ Date.prototype.diff = function(CompareDate, DatePart) {
 		case "hours":
 		case "days":
 		case "weeks":
-				// Get the Base Difference (the difference in ms)
-			//var BaseDiff = Date1.getTime() - Date2.getTime();
-			var BaseDiff = Date.UTC(Date1.getFullYear(),
-							Date1.getMonth(),
-							Date1.getDate()) - 
-							Date.UTC(Date2.getFullYear(),
-							Date2.getMonth(),
-							Date2.getDate());
-				// Set the Diff
-			Diff = parseInt( BaseDiff / Factors[DatePart] );
+			if ( CompareMethod == "actual" ) {
+				Diff = parseInt( BaseDiff / Date.Factors[DatePart] );
+			} else {
+				Diff = Date1.diff(Date2, DatePart, "Actual", NormalizeDST);
+			};
 			break;
 		case "businessdays":
-				// Count through the business days
-			var BDaysCnt = 0;
-			while ( Date1.getTime() < Date2.getTime() ) {
-				Date1 = Date1.add(1, "days");
-				if ( Date1.getDay() > 0 && Date1.getDay() < 6 ) {
-					BDaysCnt++;
-				};
-			};
+				// Set Date2 to the end of a non-business day
 			if ( Date2.getDay() == 0 || Date2.getDay() == 6 ) {
-				Diff = BDaysCnt;
-			} else {
-					// Determine if the two partial days equal a whole day
-				if ( Date1.diff(Date2, "days") > 0 ) {
-					Diff = BDaysCnt;
-				} else {
-					Diff = BDaysCnt - 1;
+					Date2.ceil(DatePart, true);
+				};
+				// First get the number of days between the dates
+			var IntDiff = Date1.diff(Date2, "Days", CompareMethod, NormalizeDST);
+				// Count through the days and remove the Saturdays and Sundays
+			while ( Date1.getTime() < Date2.getTime() ) {
+				if ( Date1.getDay() == 0 || Date1.getDay() == 6 ) {
+					--IntDiff;
+				};
+				Date1 = Date1.add(1, "days");
+			};
+			Diff = IntDiff;
+           		break;
+		case "months":
+			var MonthsCnt = 0;
+				// Count up the months
+			while ( Date1.getTime() < Date2.getTime() ) {
+				Date1.setMonth(Date1.getMonth() + 1);
+				MonthsCnt++;
+					// Determine if a "full" month has passed, date to date
+				if ( Date1.getFullYear() == Date2.getFullYear() && Date1.getMonth() == Date2.getMonth() ) {
+					if (  Date1.getDate() > Date2.getDate() ) {
+						--MonthsCnt;
+					} else {
+						break;
+					};
 				};
 			};
-            break;
-		case "businessweeks":
-			Diff = parseInt( Date1.diff(Date2, "businessdays") / 5 );
-			break;
-		case "wholeweeks":
-				// Move Date1 to the nearest Sunday
-			Date1 = Date1.add(Date1.getDay() + (6 - Date1.getDay()), "days");
-				// Now get the number of weeks between the new dates
-			Diff = Date1.diff(Date2, "weeks");
-			break;
-		case "months":
-				// Get the months for years (if any)
-			var MonthsCnt = Date1.diff(Date2, "years") * 12;
-				// Add the months from the years
-			Date1 = Date1.add(MonthsCnt, "months");
-				// Finish adding up the count of months
-			while ( Date1.getTime() < Date2.getTime() ) {
-				Date1 = Date1.add(1, "months");
-				MonthsCnt++;
-			};
-			Diff = MonthsCnt - 1;
+			Diff = MonthsCnt;
 			break;
 		case "years":
-			var YearsCnt = 0;
-				// Count up the years
-			while ( Date1.getTime() < Date2.getTime() ) {
-				Date1 = Date1.add(1, "years");
-				YearsCnt++;
-			};
-			Diff = YearsCnt - 1;
+			Diff = parseInt(Date1.diff(Date2, "Months", "Actual", NormalizeDST) / 12) ;
 			break;
 	};
 
-		// Return the time
+		// Return the time (abs to eliminate negative returns)
 	return Math.abs(Diff);
 
 };
-
-
-	// compare
-	// Compares two dates (optionally using a specific datepart precision)
-Date.prototype.compare = function(CompareDate, DatePart) {
-
-	if ( !DatePart ) {
-		var DatePart = "millisecond";
-	};
-	DatePart = DatePart.toLowerCase();
-
-	var Date1 = new Date(this);
-	var Date2 = new Date(CompareDate);
-
-	var Result;
-		// Set the precision by equalizing higher precision elements
-	switch (DatePart) {
-		case "millisecond":
-			break;
-		case "second":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			break;
-		case "minute":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			Date1.setSeconds(1);
-			Date2.setSeconds(1);
-			break;
-		case "hour":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			Date1.setSeconds(1);
-			Date2.setSeconds(1);
-			Date1.setMinutes(1);
-			Date2.setMinutes(1);
-			break;
-		case "day":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			Date1.setSeconds(1);
-			Date2.setSeconds(1);
-			Date1.setMinutes(1);
-			Date2.setMinutes(1);
-			Date1.setHours(1);
-			Date2.setHours(1);
-			break;
-		case "month":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			Date1.setSeconds(1);
-			Date2.setSeconds(1);
-			Date1.setMinutes(1);
-			Date2.setMinutes(1);
-			Date1.setHours(1);
-			Date2.setHours(1);
-			Date1.setDate(1);
-			Date2.setDate(1);
-			break;
-		case "year":
-			Date1.setMilliseconds(1);
-			Date2.setMilliseconds(1);
-			Date1.setSeconds(1);
-			Date2.setSeconds(1);
-			Date1.setMinutes(1);
-			Date2.setMinutes(1);
-			Date1.setHours(1);
-			Date2.setHours(1);
-			Date1.setDate(1);
-			Date2.setDate(1);
-			Date1.setMonth(1);
-			Date2.setMonth(1);
-			break;
-	};
-
-		// Do the comparison
-	if ( Date1.getTime() == Date2.getTime() ) {
-		Result = 0;
-	} else if ( Date1.getTime() < Date2.getTime() ) {
-		Result = -1;
-	} else {
-		Result = 1;
-	};
-
-		// Return the results
-	return Result;
-
-};
-

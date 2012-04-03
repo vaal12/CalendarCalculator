@@ -117,24 +117,19 @@ function isWorkDay(dateObj){
 function getWorkDaysToDate(endDate) {
 	var startDateChecked = $("#startDateIncludeCheckbox").is(':checked');
 	var endDateChecked = $("#endDateIncludeCheckbox").is(":checked");
-	var workDays = endDate.diff(startDateCurrent, "businessdays");
-		/**
-		 *  This is odd, for some reason calendar days are calculated by diff as 
-		 * including the first day, while working days are calculated as strict number
-		 * of days BETWEEN dates with noted exception of when dates are the same.
-		 * So in case if both dates =16.Apr-2012 (Monday) difference is 1,
-		 * while if date1 - 16Apr2012 and date2 - 17Apr2012 difference is 0
-		 * if date 1-16Apr2012 and date2 - 18Apr2012 difference is 1
-		 * To check the library code for that. 
-		 */
+	var workDays = endDate.diff(startDateCurrent, "businessdays", "complete");
+	//console.log("Workdays returned:"+workDays);
 	if ((startDateCurrent.getTime() == endDate.getTime()) 
 		&&
 		isWorkDay(startDateCurrent)) 
 		workDays=1;
 	else {
-		if(  (startDateChecked) 
+		/**
+		 * Compensation for workdays is no longer necessary will be removed in next commit 
+		 if((startDateChecked) 
 			&& 
 			 (isWorkDay(startDateCurrent))) { workDays +=1; }
+		*/
 		if(endDateChecked && isWorkDay(endDate)) workDays+=1;
 	}//else if (startDateCurrent == endDateCurrent) workDays=0;
 	return workDays
