@@ -1,0 +1,23 @@
+Hey - thanks for writing.
+
+I've just uploaded an almost total rewrite of the component that you might like:
+
+http://depressedpress.com/javascript-extensions/dp_dateextensions/
+
+I added in some simple code (enabled by default, but disabled via a new parameter) that normalizes DST by applying the difference in timezone offset between the two dates.  This "fixed" the problem... but the issue really is that wasn't really a problem to begin with - it's actually all in how you look at things.
+
+Basically the original component was "right" in that was counting only complete 24-hour periods - but it was "wrong" using basic common sense.  Your solution does work - but only when considering the question from one of several perspectives.  After giving it some (ok, probably way too much) thought I came up with the fact that there are at least three distinct ways to consider the question.
+
+1) The "Actual" difference needs to be concerned with full periods - 24 hour days, 60 minute hours, etc.   In this sense 12pm on a Tuesday is zero days difference from 10am on a Wednesday.  There's only 22 hours difference - not a full day.
+
+2) The "Logical" difference is concerned with ordinal calendar/clock values.  In this sense 12pm on a Tuesday is one day away from 10am on a Wednesday - Tuesday and Wednesday are two different days - there must be a difference between them!
+
+3) "Complete" or "Whole" periods are another way to think of things and basically combine the two concepts: only full, complete instances of ordinal-defined values are considered.  So here 12pm on a Tuesday is NOT one day difference from 12pm on a Wednesday - even tho' there's 24 hours between them they're two partial days.  However 12pm on a Tuesday and 12pm on a Thursday have a one day difference between - the complete day Wednesday falls in the range.
+
+So I basically ended up rewriting the "diff()" method... then adding "round()", "ceil()" and "floor()" methods to support it... which also meant rewriting the "add()" method as well.  Thinking about DST in general also spawned the "isDST()" and "getUSDST()" methods.
+
+So basically nearly everything but the formatting code has been completely revamped (something which I'm sure has introduced more bugs but that's hard to dodge).  In short you found a silly bug and I spent a week obsessing over it  -  don't you just love the Internet!  ;^)
+
+Thanks again,
+
+Jim Davis
