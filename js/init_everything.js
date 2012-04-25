@@ -19,9 +19,9 @@ function initEverything() {
 
 	$('#start_cal_holder_div').DatePicker({
 		flat : true,
-		date : ['2008-07-28', '2008-07-31'],
-		current : '2008-07-31',
-		calendars : 3,
+		date : ['today', 'today'],
+		current : (new Date()),
+		calendars : startCalendarNumberOfCols,
 		mode : 'range',
 		starts : 1,
 		onChange: newDatesSelected,

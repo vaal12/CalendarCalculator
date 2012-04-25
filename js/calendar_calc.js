@@ -75,7 +75,17 @@ function resetDateDifferences() {
 }
 
 function newDatesSelected(dateStr){
-	console.log("new Dates:"+dateStr)
+	console.log("new Dates:"+dateStr);
+	//var datesArr = dateStr.split(",");
+	//console.log("Str1:"+dateStr[0].toLocaleDateString());
+	console.log("Str2:"+dateStr[1]);
+	startDateCurrent = new Date(dateStr[0])
+	endDateCurrent = new Date(dateStr[1])
+	$("#endDateLabel").text(endDateCurrent.toLocaleDateString());
+	$("#startDateLabel").text(startDateCurrent.toLocaleDateString());
+	
+	
+	updateDateDifferences();
 }
 
 function startDateSelected(dateStr, instance){
@@ -131,11 +141,12 @@ function getWorkDaysToDate(endDate) {
 		workDays=1;
 	else {
 		/**
-		 * Compensation for workdays is no longer necessary will be removed in next commit 
-		 if((startDateChecked) 
+		 * Start date is no longer calculated as workday, so returns the compensation 
+		 */
+		if((startDateChecked) 
 			&& 
 			 (isWorkDay(startDateCurrent))) { workDays +=1; }
-		*/
+		
 		if(endDateChecked && isWorkDay(endDate)) workDays+=1;
 	}//else if (startDateCurrent == endDateCurrent) workDays=0;
 	return workDays
