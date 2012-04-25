@@ -277,25 +277,31 @@ function onStartOrStopDateIncludeChange(eventData){
 	
 function addStartCalCol(){
 	startCalendarNumberOfCols +=1;
-	$('#start_cal_holder_div').datepicker("option",
-			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
-	$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
-	
-	$('#end_cal_holder_div').datepicker("option",
-			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
-	$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
+	$('#start_cal_holder_div').html('');
+	$('#start_cal_holder_div').DatePicker({
+		flat : true,
+		date : ['today', 'today'],
+		current : (new Date()),
+		calendars : startCalendarNumberOfCols,
+		mode : 'range',
+		starts : 1,
+		onChange: newDatesSelected,
+	});
 }//function addStartCalCol(){
 
 function removeStartCalCol(){
 	if(startCalendarNumberOfCols>1){
 		startCalendarNumberOfCols -=1;
-		$('#start_cal_holder_div').datepicker("option",
-			"numberOfMonths", [startCalendarNumberOfRows, startCalendarNumberOfCols]);
-		$('#start_cal_holder_div').datepicker("setDate", startDateCurrent);
-		
-		$('#end_cal_holder_div').datepicker("option",
-			"numberOfMonths", [endCalendarNumberOfRows, startCalendarNumberOfCols]);
-		$('#end_cal_holder_div').datepicker("setDate", endDateCurrent);
+		$('#start_cal_holder_div').html('');
+		$('#start_cal_holder_div').DatePicker({
+		flat : true,
+		date : ['today', 'today'],
+		current : (new Date()),
+		calendars : startCalendarNumberOfCols,
+		mode : 'range',
+		starts : 1,
+		onChange: newDatesSelected,
+		});
 	}
 	console.log("Cols"+startCalendarNumberOfCols);
 	console.log("rows"+startCalendarNumberOfRows);
