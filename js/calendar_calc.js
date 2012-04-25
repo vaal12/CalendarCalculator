@@ -1,6 +1,8 @@
 //Version of this file are before (and including) commit fdc0744d46cd6229ab6f9d3c66d659257b313cdd
 // Path then was calendar_calc_jquery.js in the root directory
 
+//New calendar documentation: http://www.eyecon.ro/datepicker/#implement
+
 startDatesHistory = new Array();
 
 startDateCurrent = -1;
@@ -70,6 +72,10 @@ function resetDateDifferences() {
 	$("#workDaysInput").val("");
 	$("#weeksInput").val("");
 	$("#monthsInput").val("");
+}
+
+function newDatesSelected(dateStr){
+	console.log("new Dates:"+dateStr)
 }
 
 function startDateSelected(dateStr, instance){
