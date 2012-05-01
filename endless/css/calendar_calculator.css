@@ -1,0 +1,140 @@
+/*demo page css*/
+body {
+    font: 62.5% "Trebuchet MS", sans-serif;
+    margin: 20px 10px 10px 10px;
+}
+.demoHeaders {
+    margin-top: 2em;
+}
+#dialog_link {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#dialog_link span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+#updateStartDateButton {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#updateStartDateButton span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+#updateEndDateButton {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#updateEndDateButton span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+#startDateHistorButton {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#startDateHistorButton span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+.jQuerifiedButton {
+    height:0px;
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+.jQuerifiedButtonSpan {
+    height:0px;
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+#endDateHistoryButton {
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+#endDateHistoryButton span.ui-icon {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+ul#icons {
+    margin: 0;
+    padding: 0;
+}
+ul#icons li {
+    margin: 2px;
+    position: relative;
+    padding: 4px 0;
+    cursor: pointer;
+    float: left;
+    list-style: none;
+}
+ul#icons span.ui-icon {
+    float: left;
+    margin: 0 4px;
+}
+.style1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.noBorder {
+    border: 0px solid red;
+}
+td {
+    border: 0px solid blue;
+}
+
+.border1PixGray{
+    border: 1px solid gray;
+}
+
+.calendarLabel {
+    font-size: 2em;
+}
+.dayNumberField {
+    width: 50px;
+    text-align: center;
+    background-color: #B2B2B2;
+}
+
+.dayNumberFieldEnabled {
+    width: 50px;
+    text-align: center;
+    
+}
+
+.hiddenField {
+    visibility: hidden;
+}
+.aboutBox {
+    position:absolute; 
+        top:0; left:0; 
+    width:150px; 
+    text-align: center; 
+    z-index:-1;
+}
+
+.no-close .ui-dialog-titlebar-close {display: none }

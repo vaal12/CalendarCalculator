@@ -75,10 +75,10 @@ function resetDateDifferences() {
 }
 
 function newDatesSelected(dateStr){
-	console.log("new Dates:"+dateStr);
+	//console.log("new Dates:"+dateStr);
 	//var datesArr = dateStr.split(",");
 	//console.log("Str1:"+dateStr[0].toLocaleDateString());
-	console.log("Str2:"+dateStr[1]);
+	//console.log("Str2:"+dateStr[1]);
 	startDateCurrent = new Date(dateStr[0])
 	endDateCurrent = new Date(dateStr[1])
 	$("#endDateLabel").text(endDateCurrent.toLocaleDateString());
@@ -303,8 +303,8 @@ function removeStartCalCol(){
 		onChange: newDatesSelected,
 		});
 	}
-	console.log("Cols"+startCalendarNumberOfCols);
-	console.log("rows"+startCalendarNumberOfRows);
+	//console.log("Cols"+startCalendarNumberOfCols);
+	//console.log("rows"+startCalendarNumberOfRows);
 }//function removeStartCalCol(){
 
 
