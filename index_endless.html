@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd"-->
+<html>
+	<head>
+		<!--All previous versions of this file are in Calendar1.html -->
+		<!-- See if integration of http://multidatespickr.sourceforge.net/ is better -->
+		<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" >
+		<title>Calendar calculator</title>
+		<link type="text/css" href="js/jui/css/smoothness/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+		<link type="text/css" href="css/calendar_calculator_endless.css" rel="stylesheet" />
+		<script src="js/jui/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/jui/js/jquery-ui-1.8.18.custom.min.js"></script>
+		<script type="text/javascript" src="js/DP_DateExtensions.js"></script>
+		<script type="text/javascript" src="js/sugar-1.2.3.min.js"></script>
+		<script src="js/init_everything_endless.js"></script>
+		<script src="js/calendar_calc_endless.js"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body >
+		<div>
+			<table width="100%">
+				<tr>
+					<td align="left">
+					<input id="startDateIncludeCheckbox" type=checkbox checked title="Include into date range calculation. E.g. it will be included into number of days." />
+					<span class="calendarLabel">Start: <span id="startDateLabel"> no date selected</span> </span></td>
+					<td align="right">
+					<button id="removeRowStartCalendar">
+						Remove row
+					</button>
+					<button id="addRowStartCalendar">
+						Add row
+					</button></td>
+				</tr>
+			</table>
+		</div>
+		<div style="text-align: center; width: 100%; position: relative">
+			<table align="center" width="100%">
+				<tr><td>
+			<div id="start_cal_holder_div" align="center" width="100%"></div>
+			</td></tr>
+			</table>
+			<span > 
+				<table width="100%">
+					<tr>
+						<td align="left">
+						<table class="ui-corner-all" style="padding: 0px 15px 0px 0px; text-align: left; border: 0px gray solid; " cellpadding="3" cellspacing="4">
+							<tbody>
+								<tr>
+									<td class="calendarLabel">Between</td>
+									<td align="left" valign="top" class="border1PixGray">
+									<div style="float: left; text-align: center; margin: 3px;">
+										<div>
+											<form action="#" id="calendarDaysForm">
+												<input maxlength="6" id="calendarDaysInput" class="dayNumberFieldEnabled"  type="text" />
+												<!--input hidden type="submit" id="calendarDaysSubmit" /-->
+											</form>
+										</div>
+										calendar
+									</div>
+									<div style="float: left; text-align: center; font-size: 1.5em;">
+										Days
+									</div>
+									<div style="float: right; text-align: center; margin: 3px;">
+										<div>
+											<form action="#" id="workDaysForm">
+												<input id="workDaysInput" class="dayNumberFieldEnabled" type="text" />
+											</form>
+										</div>
+										work
+									</div></td>
+									<td align="left" valign="top" align="center" class="border1PixGray">
+									<div align="center">
+										<div style="float: left; text-align: center; margin: 3px;">
+											<div>
+												<input maxlength="6" id="calendarHoursInput" readonly class="dayNumberField"  readonly  type="text" />
+											</div>
+											total
+										</div>
+										<div style="float: left; text-align: center;font-size: 1.5em;" >
+											Hours
+										</div>
+										<div style="float: right; text-align: center;margin: 3px;">
+											<div>
+												<input id="workHoursInput" class="dayNumberField" readonly type="text" />
+											</div>
+											work
+										</div>
+									</div></td>
+									<td valign="top" align="center" class="border1PixGray">
+									<form action="#" id="weeksForm">
+										<input id="weeksInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
+									</form>
+									<div style="text-align: center;">
+										Weeks
+									</div></td>
+									<td valign="top" align="center" class="border1PixGray">
+									<form action="#" id="monthsForm">
+										<input id="monthsInput" class="dayNumberFieldEnabled" type="text" style="margin: 3px;"/>
+									</form>
+									<div style="text-align: center; ">
+										Months
+									</div></td>
+									<td class="noBorder" valign="center" align="center" class="border1PixGray"></td>
+									
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					
+					</tbody>
+				</table> 
+			</span>
+			<!--td style="height:0px; visibility: collapse">
+									<table class="noBorder" style="text-align: left; width: 100%;" border="1"
+									cellpadding="2"
+									cellspacing="2">
+									<tbody>
+									<tr>
+									<td>
+									<p class="hiddenField">
+									<a href="#" id="updateStartDateButton" class="ui-state-default
+									ui-corner-all"><span
+									class="ui-icon ui-icon-triangle-1-n"></span>Update Start date</a>
+									</p></td>
+									</tr>
+									<tr>
+									<td>
+									<p class="hiddenField">
+									<a href="#" id="updateEndDateButton" class="ui-state-default
+									ui-corner-all">Update End
+									date<span class="ui-icon ui-icon-triangle-1-s"></span></a>
+									</p></td>
+									</tr>
+									</tbody>
+									</table></td-->
+			<!--p class="hiddenField">
+						<a href="#" id="endDateHistoryButton" class="ui-corner-all" title="End date
+						history"> <span class="ui-state-default ui-icon ui-icon-clock
+						ui-corner-all">history </span> </a>
+						</p-->
+			<span style="position: absolute; top:0; left:0;"> <div id="startCalendarAddButtonsDiv"></div> <img id="removeColumnImage" src="img/rem_col.png"> </span>
+			<span style="position: absolute; top:0; right:0;"> <div id="endCalendarAddButtonsDiv"></div> <img id="addColumnImage" src="img/add_col.png"> </span>
+		</div>
+		<div align="right"> 
+		<button id="removeRowEndCalendar">
+										Remove row
+									</button>
+									<button id="addRowEndCalendar">
+										Add row
+									</button>
+		</div>
+		<div id="end_cal_holder_div" align="center"></div>
+		<br>
+		<div>
+			<input id="endDateIncludeCheckbox" type=checkbox title="Include into range calculations. E.g. it will be added to the number of days" checked value=""/>
+			<span class="calendarLabel">End:<span id="endDateLabel"> no date selected</span> </span>
+		</div>
+		<div id="dialog" title="Dialog Title">
+			<p id="startDateHistoryContent"></p>
+		</div>
+		<div id="About" class="aboutBox">
+			Calendar Calculator
+		</div>
+		<div id="startDateAfterDialog">
+			Start date appears to be after end date. Some calculations will not be correct.
+			Would you like to switch dates?
+			If you choose no, between calculations will not be performed.
+		</div>
+		<div id="testDialog">
+			A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.
+
+			If the content length exceeds the maximum height, a scrollbar will automatically appear.
+
+			A bottom button bar and semi-transparent modal overlay layer are common options that can be added.
+
+			A call to $(foo).dialog() will initialize a dialog instance and will auto-open the dialog by default. If you want to reuse a dialog, the easiest way is to disable the "auto-open" option with: $(foo).dialog({ autoOpen: false }) and open it with $(foo).dialog('open'). To close it, use $(foo).dialog('close'). A more in-depth explanation with a full demo is available on the Nemikor blog.
+			timeoutID is the numerical ID of the timeout, which can be used later with window.clearTimeout.
+			func is the function you want to execute after delay milliseconds.
+			code in the alternate syntax, is a string of code you want to execute after delay milliseconds. (Using this syntax is not recommended for the same reasons as using eval())
+			delay is the number of milliseconds (thousandths of a second) that the function call should be delayed by. The actual delay may be longer, see Notes below.
+
+			Note that passing additional parameters to the function in the first syntax does not work in Internet Explorer.
+			Note: Prior to Gecko 13 (Firefox 13.0 / Thunderbird 13.0) , Gecko passed an extra parameter to the callback routine, indicating the "actual lateness" of the timeout in milliseconds. This non-standard parameter is no longer passed.
+			Compatibility
+
+			Introduced with JavaScript 1.0, Netscape 2.0. Passing a Function object reference was introduced with JavaScript 1.2, Netscape 4.0; supported by the MSHTML DOM since version 5.0.
+			Examples
+		</div>
+		<!-- ui-dialog -->
+		<!-- <div class="ui-overlay">
+		<div class="ui-widget-overlay"></div>
+		<div class="ui-widget-shadow ui-corner-all"
+		style="width: 302px; height: 152px; position: absolute; left: 50px; top:
+		30px;"></div>
+		</div>
+		<div
+		style="position: absolute; width: 280px; height: 130px; left: 50px; top: 30px;
+		padding: 10px;"
+		class="ui-widget ui-widget-content ui-corner-all">
+		<div class="ui-dialog-content ui-widget-content"
+		style="background: none; border: 0;">
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+		elit, sed do eiusmod tempor incididunt ut labore et dolore
+		magna aliqua. Ut enim ad minim veniam, quis nostrud
+		exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat.</p>
+		</div>
+		</div> -->
+		<!--<span id="start_year_back" class="ui-icon ui-icon-circle-arrow-w"></span>-->
+		<div style="font-size: 0.75em; float: right">
+			version 0.4.0 [3-Apr-2012] | <a href="CalendarCalculator3-Apr-2012.zip">Offline version</a>
+		</div>
+	</body>
+</html>
